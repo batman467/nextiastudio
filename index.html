@@ -3,1490 +3,666 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexIA Studio — Design. Code. IA.</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>NexIA Studio — Agence Digitale IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --gold:#b8893a;--gold2:#d4a85a;--gold3:#f0d9a8;--gold4:#fffdf5;
-  --dark:#0f111a;--dark2:#1a1d2e;--dark3:#252840;
-  --white:#ffffff;--off:#fdfaf5;--off2:#f5f2ec;--off3:#ede9e0;
-  --grey:#888;--grey2:#555;--grey3:#ccc;
-  --purp:#7c5cbf;--purp2:#a07de0;
-  --green:#2d8a5e;--green2:#edfaf3;
-  --border:#e0ddd6;--border2:#ebe7df;
+--green:#1D9E75;--green-light:#5DCAA5;--green-neon:#a0ffd8;--green-glow:#1D9E7540;
+--bg:#060b09;--bg2:#0a0f0d;--bg3:#0e1512;--bg4:#141c18;
+--text:#e8f5f0;--text2:#8aa89c;--text3:#4a6b5e;
+--radius:12px;--radius-sm:8px;
 }
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--dark);overflow-x:hidden}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--off2)}
-::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+a{color:var(--green-light);text-decoration:none;transition:color .2s}
+a:hover{color:var(--green-neon)}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5vw;height:62px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-mark{width:32px;height:32px;border:2px solid var(--dark);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--dark);transition:all .25s}
-.nav-mark:hover{background:var(--dark);color:#fff}
-.nav-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--dark)}
-.nav-name span{color:var(--gold)}
-.nav-links{display:flex;align-items:center;gap:24px}
-.nav-links a{font-size:12.5px;color:var(--grey2);text-decoration:none;transition:color .2s;letter-spacing:.2px}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{background:var(--dark);color:#fff;font-size:11px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:9px 18px;text-decoration:none;transition:all .25s;border:none;cursor:pointer;white-space:nowrap}
-.nav-cta:hover{background:var(--gold)}
-.burger{display:none;flex-direction:column;gap:4px;cursor:pointer}
-.burger span{width:20px;height:1.5px;background:var(--dark);display:block;transition:all .3s}
-.mob-menu{display:none;position:fixed;top:62px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:20px 5vw;flex-direction:column;gap:0;z-index:199}
-.mob-menu.open{display:flex}
-.mob-menu a{font-size:14px;color:var(--dark);text-decoration:none;padding:12px 0;border-bottom:1px solid var(--border)}
-.mob-menu a.mob-cta{background:var(--dark);color:#fff;text-align:center;padding:13px;border:none;margin-top:10px}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;background:var(--bg)ee;backdrop-filter:blur(20px);border-bottom:1px solid var(--green-glow)}
+.nav-logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:1px}
+.nav-logo svg{width:32px;height:32px}
+.nav-logo span{color:var(--green)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{color:var(--text2);font-size:14px;font-weight:400;letter-spacing:.5px;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--green-neon)}
+.nav-cta{background:var(--green);color:#060b09;padding:8px 20px;border-radius:var(--radius-sm);font-weight:600;font-size:13px;letter-spacing:.5px;transition:all .3s}
+.nav-cta:hover{background:var(--green-neon);color:#060b09;transform:translateY(-1px);box-shadow:0 4px 20px var(--green-glow)}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.menu-toggle span{width:24px;height:2px;background:var(--text);transition:.3s}
 
-/* ── COMMON ── */
-.sec{padding:80px 5vw}
-.sec-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:500}
-.sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:700;color:var(--dark);line-height:1.2;margin-bottom:12px}
-.sec-sub{font-size:14px;color:var(--grey);line-height:1.75;font-weight:300}
-.sec-head{margin-bottom:48px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-@keyframes bounce{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes spin{to{transform:rotate(360deg)}}
-.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{display:inline-block;padding:6px 16px;border:1px solid var(--green-glow);border-radius:20px;font-size:12px;color:var(--green-light);letter-spacing:2px;font-family:'JetBrains Mono',monospace;margin-bottom:32px;text-transform:uppercase}
+.hero h1{font-size:clamp(40px,7vw,72px);font-weight:700;line-height:1.1;margin-bottom:24px;letter-spacing:-1px}
+.hero h1 .accent{color:var(--green);position:relative}
+.hero h1 .accent::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:3px;background:var(--green);border-radius:2px;opacity:.5}
+.hero p{font-size:18px;color:var(--text2);max-width:560px;margin:0 auto 40px;line-height:1.7}
+.hero-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--green);color:#060b09;padding:14px 32px;border-radius:var(--radius-sm);font-weight:600;font-size:15px;transition:all .3s;border:none;cursor:pointer;font-family:inherit}
+.btn-primary:hover{background:var(--green-neon);transform:translateY(-2px);box-shadow:0 8px 30px var(--green-glow)}
+.btn-secondary{border:1px solid var(--green-glow);color:var(--green-light);padding:14px 32px;border-radius:var(--radius-sm);font-weight:500;font-size:15px;transition:all .3s;background:transparent;cursor:pointer;font-family:inherit}
+.btn-secondary:hover{border-color:var(--green);background:var(--green)10}
 
-/* ── HERO ── */
-#hero{min-height:100vh;display:flex;align-items:center;padding:100px 5vw 60px;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;pointer-events:none}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);background-size:52px 52px;opacity:.4}
-.hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(184,137,58,.08) 0%,transparent 70%);right:-60px;top:-60px}
-.hero-glow2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(124,92,191,.06) 0%,transparent 70%);left:-40px;bottom:80px}
-.hero-content{position:relative;z-index:1;max-width:600px;animation:fadeUp .7s ease both}
-.htag{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:5px 14px;margin-bottom:24px}
-.htag-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
-h1.hero-title{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,66px);font-weight:700;line-height:1.08;margin-bottom:20px}
-h1.hero-title em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:15px;color:var(--grey);line-height:1.75;max-width:460px;margin-bottom:32px;font-weight:300}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
-.btn-p{background:var(--dark);color:#fff;padding:13px 26px;font-size:12.5px;font-weight:500;letter-spacing:.8px;text-decoration:none;border:none;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:8px}
-.btn-p:hover,.btn-p:focus{background:var(--gold);outline:none}
-.btn-s{background:transparent;color:var(--dark);padding:12px 22px;font-size:12.5px;border:1px solid var(--dark);cursor:pointer;transition:all .25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-s:hover{border-color:var(--gold);color:var(--gold)}
-.hero-stats{display:flex;gap:32px;padding-top:32px;border-top:1px solid var(--border)}
-.hs-val{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold)}
-.hs-lbl{font-size:11px;color:var(--grey);margin-top:1px}
-.hero-right{position:absolute;right:5vw;top:50%;transform:translateY(-50%);width:380px;display:flex;flex-direction:column;gap:10px;animation:fadeUp .7s .3s ease both}
-.hcard{background:#fff;border:1px solid var(--border);padding:16px 18px;box-shadow:0 2px 16px rgba(0,0,0,.04)}
-.hcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.hcard-t{font-size:11.5px;font-weight:500;color:var(--dark)}
-.hbadge{font-size:9px;letter-spacing:.8px;text-transform:uppercase;padding:2px 8px;background:var(--off2);color:var(--gold);border:1px solid var(--gold3)}
-.hbadge.live{background:var(--green2);color:var(--green);border-color:#a8dfc4;animation:blink 1.5s infinite}
-.hbar{height:3px;background:var(--off2);border-radius:2px;overflow:hidden;margin-bottom:5px}
-.hbar-f{height:100%;border-radius:2px;transition:width 1.5s ease}
-.hbar-gold .hbar-f{background:linear-gradient(90deg,var(--gold),var(--gold2))}
-.hbar-green .hbar-f{background:linear-gradient(90deg,var(--green),#6fcf97)}
-.hrow{display:flex;justify-content:space-between;font-size:10.5px;color:var(--grey)}
-.hnum{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--dark)}
+/* STATS BAR */
+.stats{display:flex;justify-content:center;gap:60px;padding:60px 24px;border-top:1px solid var(--green-glow);border-bottom:1px solid var(--green-glow)}
+.stat{text-align:center}
+.stat-num{font-size:36px;font-weight:700;color:var(--green-neon);font-family:'JetBrains Mono',monospace}
+.stat-label{font-size:13px;color:var(--text3);margin-top:4px;letter-spacing:1px;text-transform:uppercase}
 
-/* ── ACCROCHE ── */
-#accroche{background:var(--dark);padding:52px 5vw}
-.acc-inner{max-width:760px;margin:0 auto;text-align:center}
-.acc-q{font-family:'Playfair Display',serif;font-size:clamp(20px,2.8vw,30px);font-weight:700;color:#fff;line-height:1.4;margin-bottom:14px}
-.acc-q em{font-style:normal;color:var(--gold)}
-.acc-s{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:24px;font-weight:300}
-.acc-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.acc-pill{font-size:10.5px;color:var(--gold);border:1px solid rgba(184,137,58,.3);padding:5px 14px;background:rgba(184,137,58,.05);letter-spacing:.4px}
+/* SECTIONS */
+section{padding:100px 24px}
+.section-header{text-align:center;max-width:600px;margin:0 auto 64px}
+.section-tag{font-size:12px;color:var(--green);letter-spacing:3px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:16px}
+.section-title{font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:16px;letter-spacing:-.5px}
+.section-desc{color:var(--text2);font-size:16px;line-height:1.7}
 
-/* ── SERVICES ── */
-#services{background:#fff}
-.serv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
-.serv-c{background:#fff;padding:32px 24px;transition:all .3s;position:relative;overflow:hidden;cursor:default}
-.serv-c::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .4s}
-.serv-c:hover::after{width:100%}
-.serv-c:hover{background:var(--off)}
-.serv-icon{width:40px;height:40px;border:1.5px solid var(--dark);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transition:all .3s}
-.serv-c:hover .serv-icon{background:var(--gold);border-color:var(--gold)}
-.serv-c:hover .serv-icon svg{stroke:#fff}
-.serv-icon svg{width:18px;height:18px;stroke:var(--dark);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
-.serv-name{font-size:15px;font-weight:500;color:var(--dark);margin-bottom:8px}
-.serv-desc{font-size:12.5px;color:var(--grey);line-height:1.65;font-weight:300;margin-bottom:14px}
-.serv-tags{display:flex;flex-wrap:wrap;gap:5px}
-.stag{font-size:9px;letter-spacing:.6px;color:var(--gold);border:1px solid var(--gold3);padding:2px 7px;text-transform:uppercase}
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+.service-card{background:var(--bg2);border:1px solid var(--green-glow);border-radius:var(--radius);padding:36px;transition:all .4s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .4s}
+.service-card:hover{border-color:var(--green);transform:translateY(-4px);box-shadow:0 12px 40px #1D9E7515}
+.service-card:hover::before{opacity:1}
+.service-icon{width:48px;height:48px;border-radius:var(--radius-sm);background:var(--green)15;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:22px}
+.service-card h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.service-card p{color:var(--text2);font-size:14px;line-height:1.7}
+.service-card .price{margin-top:16px;font-family:'JetBrains Mono',monospace;color:var(--green-neon);font-size:14px}
 
-/* ── PORTFOLIO ── */
-#portfolio{background:var(--off)}
-.port-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:40px;overflow-x:auto}
-.port-tab{font-size:12px;font-weight:500;color:var(--grey);padding:12px 22px;cursor:pointer;border-bottom:2px solid transparent;transition:all .25s;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;letter-spacing:.4px}
-.port-tab.active{color:var(--dark);border-bottom-color:var(--gold)}
-.port-tab:hover{color:var(--dark)}
-.port-panel{display:none}
-.port-panel.active{display:block}
-.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.port-card{background:#fff;border:1px solid var(--border);overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
-.port-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.1);transform:translateY(-4px)}
-.port-preview{height:180px;position:relative;overflow:hidden}
-.port-preview iframe{width:200%;height:200%;transform:scale(.5);transform-origin:top left;pointer-events:none;border:none}
-.port-overlay{position:absolute;inset:0;background:rgba(15,17,26,.6);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
-.port-card:hover .port-overlay{opacity:1}
-.port-overlay-btn{background:#fff;color:var(--dark);font-size:11px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;padding:9px 18px;border:none;cursor:pointer;transition:all .25s}
-.port-overlay-btn:hover{background:var(--gold);color:#fff}
-.port-info{padding:16px 18px}
-.port-cat{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.port-name{font-size:14px;font-weight:500;color:var(--dark);margin-bottom:4px}
-.port-tech{font-size:11px;color:var(--grey);font-weight:300}
-/* Mockup preview styles */
-.mock-site{width:100%;height:100%;background:#fff;font-family:sans-serif;font-size:8px;overflow:hidden}
-.m1-nav{background:#1a1a2e;color:#fff;padding:6px 10px;display:flex;align-items:center;gap:6px;font-size:7px}
-.m1-logo{width:12px;height:12px;background:var(--gold);border-radius:50%}
-.m1-hero{background:linear-gradient(135deg,#f8f4ef,#fff);padding:16px 10px;text-align:center}
-.m1-h{font-size:11px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
-.m1-btn{background:#b8893a;color:#fff;padding:3px 8px;font-size:7px;display:inline-block;margin:3px 0}
-.m1-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;padding:8px 10px}
-.m1-card{background:#fdfaf5;border:1px solid #e0ddd6;padding:6px;border-radius:1px}
-.m1-card-icon{width:10px;height:10px;background:#e0d0b0;margin-bottom:3px}
-.m1-card-t{font-size:6px;font-weight:600;color:#1a1a2e;margin-bottom:2px}
-.m1-card-d{font-size:5px;color:#888;line-height:1.4}
-/* App mockup */
-.m2-phone{background:#1a1a2e;border-radius:8px;padding:8px 6px;height:100%;display:flex;flex-direction:column;gap:4px}
-.m2-status{display:flex;justify-content:space-between;font-size:5px;color:rgba(255,255,255,.4);margin-bottom:2px}
-.m2-header{background:#252840;border-radius:4px;padding:6px 8px;color:#fff;font-size:7px;font-weight:600;display:flex;align-items:center;gap:4px}
-.m2-dot{width:5px;height:5px;background:var(--gold);border-radius:50%}
-.m2-card{background:#252840;border-radius:3px;padding:5px 7px;color:rgba(255,255,255,.7);font-size:5.5px;line-height:1.5}
-.m2-num{font-size:11px;font-weight:700;color:var(--gold)}
-.m2-bar{height:3px;background:#333;border-radius:2px;margin:3px 0}
-.m2-bar-f{height:100%;background:var(--gold);border-radius:2px}
-.m2-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
-/* 3D mockup */
-.m3-wrap{background:#0f111a;height:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.m3-cube{width:60px;height:60px;position:relative;transform-style:preserve-3d;transform:rotateX(-20deg) rotateY(30deg);margin:auto}
-.m3-face{position:absolute;width:60px;height:60px;border:1px solid rgba(184,137,58,.5)}
-.m3-face.front{background:rgba(184,137,58,.15);transform:translateZ(30px)}
-.m3-face.back{background:rgba(184,137,58,.08);transform:rotateY(180deg) translateZ(30px)}
-.m3-face.right{background:rgba(184,137,58,.12);transform:rotateY(90deg) translateZ(30px)}
-.m3-face.left{background:rgba(184,137,58,.1);transform:rotateY(-90deg) translateZ(30px)}
-.m3-face.top{background:rgba(184,137,58,.18);transform:rotateX(90deg) translateZ(30px)}
-.m3-face.bottom{background:rgba(184,137,58,.06);transform:rotateX(-90deg) translateZ(30px)}
-.m3-label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:7px;color:rgba(184,137,58,.8);letter-spacing:1px;text-transform:uppercase}
-/* Doc mockup */
-.m4-doc{background:#fff;height:100%;padding:10px 12px;font-size:6px;color:#333;border:1px solid #e0e0e0}
-.m4-header{border-bottom:2px solid #1a1a2e;padding-bottom:5px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
-.m4-logo{width:20px;height:8px;background:#1a1a2e}
-.m4-title{font-size:9px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
-.m4-sub{font-size:6px;color:#888;margin-bottom:6px}
-.m4-table{width:100%;border-collapse:collapse}
-.m4-table th{background:#f5f2ec;color:#1a1a2e;padding:2px 4px;font-size:5.5px;text-align:left;border:1px solid #e0ddd6}
-.m4-table td{padding:2px 4px;font-size:5.5px;border:1px solid #e0ddd6;color:#555}
-.m4-table tr:nth-child(even) td{background:#fafafa}
-/* Ecommerce */
-.m5-nav{background:#fff;border-bottom:1px solid #e0e0e0;padding:5px 8px;display:flex;justify-content:space-between;align-items:center;font-size:6px}
-.m5-logo{font-size:8px;font-weight:700;color:#1a1a2e}
-.m5-cart{background:#b8893a;color:#fff;padding:2px 6px;font-size:5px}
-.m5-hero{background:linear-gradient(135deg,#1a1a2e,#252840);padding:12px 8px;color:#fff;text-align:center}
-.m5-hero h3{font-size:9px;color:var(--gold);margin-bottom:3px}
-.m5-hero p{font-size:6px;color:rgba(255,255,255,.6)}
-.m5-prods{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;padding:6px}
-.m5-prod{border:1px solid #e0e0e0;padding:4px}
-.m5-img{height:20px;background:linear-gradient(135deg,#f0e8d8,#e0d0b0);margin-bottom:3px}
-.m5-pname{font-size:5.5px;font-weight:600;color:#1a1a2e}
-.m5-price{font-size:6px;color:var(--gold);font-weight:700}
-/* Dashboard */
-.m6-wrap{background:#0f111a;height:100%;padding:8px;display:flex;gap:5px}
-.m6-side{width:28px;background:#1a1d2e;border-radius:2px;display:flex;flex-direction:column;align-items:center;padding:6px 0;gap:5px}
-.m6-sicon{width:14px;height:14px;background:rgba(255,255,255,.06);border-radius:2px;border:1px solid rgba(255,255,255,.08)}
-.m6-sicon.active{background:rgba(184,137,58,.2);border-color:rgba(184,137,58,.4)}
-.m6-main{flex:1;display:flex;flex-direction:column;gap:4px}
-.m6-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px}
-.m6-stat{background:#1a1d2e;border-radius:2px;padding:4px 5px}
-.m6-stat-v{font-size:9px;font-weight:700;color:var(--gold)}
-.m6-stat-l{font-size:5px;color:rgba(255,255,255,.35)}
-.m6-chart{background:#1a1d2e;border-radius:2px;padding:5px;flex:1}
-.m6-bars{display:flex;align-items:flex-end;gap:2px;height:35px}
-.m6-bar{flex:1;background:rgba(184,137,58,.3);border-radius:1px;min-height:4px}
-.m6-bar.hi{background:var(--gold)}
+/* PROCESS */
+.process{max-width:900px;margin:0 auto}
+.process-step{display:flex;gap:32px;align-items:flex-start;margin-bottom:48px;position:relative}
+.process-step:not(:last-child)::after{content:'';position:absolute;left:23px;top:56px;bottom:-48px;width:1px;background:linear-gradient(to bottom,var(--green),var(--green-glow))}
+.step-num{width:48px;height:48px;border-radius:50%;border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:var(--green-neon);flex-shrink:0;background:var(--bg);font-family:'JetBrains Mono',monospace}
+.step-content h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.step-content p{color:var(--text2);font-size:14px;line-height:1.7}
 
-/* ── PORTFOLIO MODAL ── */
-#port-modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);align-items:center;justify-content:center;padding:20px}
-#port-modal.open{display:flex}
-.port-modal-box{background:#fff;width:100%;max-width:900px;max-height:90vh;overflow:auto;position:relative}
-.port-modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;background:var(--dark);color:#fff;border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;z-index:1}
-.port-modal-title{padding:24px 28px 0;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--dark)}
-.port-modal-sub{padding:6px 28px 16px;font-size:13px;color:var(--grey);border-bottom:1px solid var(--border)}
-.port-modal-content{padding:24px 28px}
+/* PORTFOLIO */
+.portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;max-width:1100px;margin:0 auto}
+.portfolio-card{background:var(--bg2);border:1px solid var(--green-glow);border-radius:var(--radius);overflow:hidden;transition:all .4s}
+.portfolio-card:hover{border-color:var(--green);transform:translateY(-4px)}
+.portfolio-thumb{height:200px;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.portfolio-thumb::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green)08,var(--green)15);pointer-events:none}
+.portfolio-thumb .mock{font-size:48px;opacity:.3}
+.portfolio-info{padding:24px}
+.portfolio-info h3{font-size:17px;font-weight:600;margin-bottom:6px}
+.portfolio-info p{color:var(--text2);font-size:13px;line-height:1.6}
+.portfolio-tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tag{padding:4px 10px;border-radius:20px;font-size:11px;background:var(--green)15;color:var(--green-light);font-family:'JetBrains Mono',monospace}
 
-/* ── MAQUETTES ── */
-#maquettes{background:#fff}
-.maq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.maq-card{border:1px solid var(--border);overflow:hidden;transition:all .3s;cursor:pointer}
-.maq-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.08);transform:translateY(-3px)}
-.maq-preview{height:160px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.maq-label{position:absolute;bottom:8px;left:8px;background:var(--dark);color:#fff;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px}
-.maq-info{padding:14px 16px;background:#fff}
-.maq-type{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
-.maq-name{font-size:13px;font-weight:500;color:var(--dark);margin-bottom:3px}
-.maq-desc{font-size:11px;color:var(--grey);font-weight:300}
-.maq-tags{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
-.maq-tag{font-size:9px;color:var(--gold);border:1px solid var(--gold3);padding:2px 6px}
+/* QUOTE GENERATOR */
+.quote-section{background:var(--bg2);border-top:1px solid var(--green-glow);border-bottom:1px solid var(--green-glow)}
+.quote-container{max-width:700px;margin:0 auto}
+.quote-form{display:flex;flex-direction:column;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:13px;color:var(--text2);letter-spacing:.5px}
+.form-group select,.form-group input,.form-group textarea{background:var(--bg3);border:1px solid var(--green-glow);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;transition:border-color .2s;outline:none}
+.form-group select:focus,.form-group input:focus,.form-group textarea:focus{border-color:var(--green)}
+.form-group select option{background:var(--bg2)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:10px}
+.checkbox-label{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 14px;border:1px solid var(--green-glow);border-radius:var(--radius-sm);font-size:13px;color:var(--text2);transition:all .2s}
+.checkbox-label:has(input:checked){border-color:var(--green);background:var(--green)15;color:var(--green-neon)}
+.checkbox-label input{display:none}
+.estimate-result{background:var(--bg);border:2px solid var(--green);border-radius:var(--radius);padding:32px;text-align:center;margin-top:24px;display:none}
+.estimate-result.show{display:block;animation:fadeUp .4s ease}
+.estimate-price{font-size:48px;font-weight:700;color:var(--green-neon);font-family:'JetBrains Mono',monospace}
+.estimate-detail{color:var(--text2);font-size:14px;margin-top:8px}
+.estimate-cta{margin-top:20px}
 
-/* ── TARIFS ── */
-#tarifs{background:var(--off)}
-.plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
-.plan{background:#fff;border:1px solid var(--border);padding:26px 18px;position:relative;transition:all .3s}
-.plan:hover{box-shadow:0 6px 32px rgba(0,0,0,.07);transform:translateY(-2px)}
-.plan.best{border:2px solid var(--gold)}
-.plan.galaxy{border:2px solid var(--purp)}
-.plan-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;white-space:nowrap}
-.plan-badge.g{background:var(--gold);color:#fff}
-.plan-badge.p{background:var(--purp);color:#fff}
-.plan-name{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--grey);margin-bottom:8px}
-.plan-price{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--dark);margin-bottom:2px;line-height:1}
-.plan-price sup{font-size:14px;color:var(--gold);vertical-align:super}
-.galaxy .plan-price sup{color:var(--purp)}
-.plan-price small{font-size:12px;font-weight:300;color:var(--grey);font-family:'DM Sans',sans-serif}
-.plan-desc{font-size:11px;color:#aaa;margin:6px 0 14px;line-height:1.4;min-height:26px}
-.plan-sep{height:1px;background:var(--border);margin:12px 0}
-.plan-feats{list-style:none}
-.plan-feats li{font-size:12px;color:var(--grey2);padding:4px 0;display:flex;align-items:flex-start;gap:7px;line-height:1.4}
-.plan-feats li svg{width:11px;height:11px;stroke:var(--gold);flex-shrink:0;margin-top:2px;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.galaxy .plan-feats li svg{stroke:var(--purp)}
-.plan-feats li.off{color:#ccc}
-.plan-feats li.off svg{stroke:#ddd}
-.plan-btn{margin-top:16px;width:100%;background:transparent;border:1px solid var(--dark);color:var(--dark);font-family:'DM Sans',sans-serif;font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;padding:10px;cursor:pointer;transition:all .25s}
-.plan-btn:hover{background:var(--dark);color:#fff}
-.best .plan-btn{background:var(--gold);border-color:var(--gold);color:#fff}
-.best .plan-btn:hover{background:var(--dark);border-color:var(--dark)}
-.galaxy .plan-btn{background:var(--purp);border-color:var(--purp);color:#fff}
-.galaxy .plan-btn:hover{background:var(--dark);border-color:var(--dark)}
-/* Comparison table */
-.cmp-wrap{margin-top:48px}
-.cmp-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--dark);margin-bottom:24px}
-.cmp-table{width:100%;border-collapse:collapse;font-size:12.5px}
-.cmp-table thead tr{border-bottom:2px solid var(--dark)}
-.cmp-table thead th{padding:10px 12px;font-size:9.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--dark);font-weight:500;text-align:left}
-.cmp-table thead th:not(:first-child){text-align:center}
-.cmp-table thead th.thg{color:var(--purp)}
-.cmp-table thead th.thbest{color:var(--gold)}
-.cmp-table tbody tr{border-bottom:1px solid var(--border2)}
-.cmp-table tbody tr:last-child{border-bottom:none}
-.cmp-table tbody td{padding:9px 12px;color:var(--grey);font-weight:300}
-.cmp-table tbody td:first-child{color:var(--dark);font-weight:400}
-.cmp-table tbody td:not(:first-child){text-align:center}
-.cmp-table tbody tr:nth-child(even){background:var(--off)}
-.ck{color:var(--gold);font-weight:500}
-.ckv{color:var(--purp);font-weight:500}
-.dk{color:var(--grey3)}
-.price-row td{font-weight:500!important}
-.price-row td:nth-child(2){color:var(--gold)!important}
-.price-row td:nth-child(3){color:var(--gold)!important}
-.price-row td:nth-child(4){color:var(--gold)!important}
-.price-row td:nth-child(5){color:var(--purp)!important}
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto}
+.contact-info{display:flex;flex-direction:column;gap:24px}
+.contact-item{display:flex;gap:16px;align-items:flex-start}
+.contact-icon{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--green)15;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.contact-item h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.contact-item p{font-size:13px;color:var(--text2)}
 
-/* ── DEVIS ── */
-#devis{background:#fff}
-.devis-wrap{display:grid;grid-template-columns:1fr 1.35fr;gap:52px;align-items:start}
-.devis-why{list-style:none;margin-top:24px}
-.devis-why li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:12.5px;color:var(--grey2)}
-.devis-why li:last-child{border-bottom:none}
-.why-icon{width:28px;height:28px;border:1px solid var(--gold3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.why-icon svg{width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.form-box{background:var(--off);border:1px solid var(--border);padding:32px}
-.form-title{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--dark);margin-bottom:5px}
-.form-sub{font-size:11.5px;color:var(--grey);margin-bottom:22px;line-height:1.6}
-.fg{margin-bottom:16px}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fl{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--grey2);margin-bottom:5px;display:block;font-weight:500}
-.fi,.fs,.fta{width:100%;background:#fff;border:1px solid var(--border);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--dark);outline:none;transition:border-color .2s;-webkit-appearance:none;border-radius:0}
-.fi:focus,.fs:focus,.fta:focus{border-color:var(--gold)}
-.fta{resize:vertical;min-height:85px}
-.fs{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:32px}
-.fcbs{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.fcb{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--grey2);cursor:pointer;padding:7px 10px;border:1px solid var(--border);transition:all .2s;background:#fff;user-select:none}
-.fcb:hover{border-color:var(--gold3);background:var(--gold4)}
-.fcb input{width:12px;height:12px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
-.fsubmit{width:100%;background:var(--dark);color:#fff;border:none;padding:13px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:6px;border-radius:0}
-.fsubmit:hover:not(:disabled){background:var(--gold)}
-.fsubmit:disabled{background:var(--grey3);cursor:not-allowed}
-.fsubmit svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-#devis-result{display:none;margin-top:20px;border:1px solid var(--gold3);background:#fffdf8;padding:22px}
-.res-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--gold3)}
-.res-badge{background:var(--gold);color:#fff;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;display:flex;align-items:center;gap:5px}
-.res-badge::before{content:'';width:5px;height:5px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite}
-.res-title{font-size:12.5px;font-weight:500;color:var(--dark)}
-#devis-text{font-size:12.5px;color:var(--grey2);line-height:1.8;white-space:pre-wrap}
-.res-actions{display:flex;gap:9px;margin-top:14px;padding-top:12px;border-top:1px solid var(--gold3)}
-.res-btn{flex:1;padding:9px;font-size:10px;font-weight:500;letter-spacing:.7px;text-transform:uppercase;cursor:pointer;transition:all .25s;border:1px solid;display:flex;align-items:center;justify-content:center;gap:5px;text-decoration:none;font-family:'DM Sans',sans-serif}
-.res-btn.rp{background:var(--dark);color:#fff;border-color:var(--dark)}
-.res-btn.rp:hover{background:var(--gold);border-color:var(--gold)}
-.res-btn.rs{background:#fff;color:var(--dark);border-color:var(--border)}
-.res-btn.rs:hover{border-color:var(--gold);color:var(--gold)}
-.ldots{display:inline-flex;gap:4px;align-items:center}
-.ldots span{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:bounce .8s infinite}
-.ldots span:nth-child(2){animation-delay:.15s}
-.ldots span:nth-child(3){animation-delay:.3s}
+/* FOOTER */
+footer{padding:40px 24px;border-top:1px solid var(--green-glow);text-align:center}
+footer p{font-size:13px;color:var(--text3)}
+footer .footer-logo{font-weight:600;font-size:16px;margin-bottom:12px;letter-spacing:1px}
+footer .footer-logo span{color:var(--green)}
 
-/* ── METHODE ── */
-#methode{background:var(--off)}
-.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:48px}
-.proc-steps::before{content:'';position:absolute;top:19px;left:10%;right:10%;height:1px;background:var(--border)}
-.proc-step{text-align:center;padding:0 14px}
-.proc-num{width:38px;height:38px;border:2px solid var(--dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--dark);margin:0 auto 18px;background:#fff;position:relative;z-index:1;transition:all .3s}
-.proc-step:first-child .proc-num{background:var(--dark);color:#fff}
-.proc-step:hover .proc-num{background:var(--gold);border-color:var(--gold);color:#fff}
-.proc-title{font-size:13px;font-weight:500;color:var(--dark);margin-bottom:6px}
-.proc-desc{font-size:11.5px;color:var(--grey);line-height:1.6;font-weight:300}
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(30px);transition:all .6s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
 
-/* ── CONTACT ── */
-#contact{background:var(--dark)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
-.contact-left .sec-title{color:#fff}
-.contact-left .sec-sub{color:rgba(255,255,255,.45)}
-.cinfos{margin-top:28px;display:flex;flex-direction:column;gap:14px}
-.cinfo{display:flex;align-items:center;gap:12px}
-.cinfo-icon{width:36px;height:36px;border:1px solid rgba(184,137,58,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.cinfo-icon svg{width:15px;height:15px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.cinfo-lbl{font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:1px}
-.cinfo-val{font-size:12.5px;color:#fff}
-.cinfo-val a{color:var(--gold);text-decoration:none}
-.cinfo-val a:hover{text-decoration:underline}
-.contact-right .form-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:28px}
-.contact-right .fi,.contact-right .fta{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff}
-.contact-right .fi::placeholder,.contact-right .fta::placeholder{color:rgba(255,255,255,.25)}
-.contact-right .fi:focus,.contact-right .fta:focus{border-color:var(--gold)}
-.contact-right .fl{color:rgba(255,255,255,.45)}
-.contact-submit{width:100%;background:var(--gold);color:#fff;border:none;padding:12px;font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:background .25s;margin-top:6px}
-.contact-submit:hover{background:var(--white);color:var(--dark)}
-#contact-ok{display:none;margin-top:12px;padding:10px 14px;background:rgba(45,138,94,.15);border:1px solid rgba(45,138,94,.3);font-size:11.5px;color:#6fcf97;text-align:center}
+/* GRID BACKGROUND */
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.03;
+background-image:linear-gradient(var(--green) 1px,transparent 1px),linear-gradient(90deg,var(--green) 1px,transparent 1px);
+background-size:60px 60px}
 
-/* ── FOOTER ── */
-footer{background:var(--dark2);padding:32px 5vw;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.05)}
-.foot-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.fmark{width:28px;height:28px;border:1.5px solid rgba(184,137,58,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:12px;font-weight:700;color:var(--gold)}
-.fname{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:#fff}
-.fname span{color:var(--gold)}
-.foot-tagline{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px}
-.foot-mid{text-align:center;font-size:11px;color:rgba(255,255,255,.3)}
-.foot-links{display:flex;gap:18px}
-.foot-links a{font-size:11px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s}
-.foot-links a:hover{color:var(--gold)}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:20px;right:20px;background:var(--dark);color:#fff;padding:12px 18px;font-size:12.5px;z-index:999;transform:translateY(70px);opacity:0;transition:all .3s;border-left:3px solid var(--gold);max-width:300px;pointer-events:none}
-.toast.show{transform:translateY(0);opacity:1}
-
-/* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .hero-right{display:none}
-  .devis-wrap{grid-template-columns:1fr}
-  .plans-grid{grid-template-columns:1fr 1fr}
-  .contact-grid{grid-template-columns:1fr}
-}
+/* MOBILE */
 @media(max-width:768px){
-  .nav-links,.nav-cta{display:none}
-  .burger{display:flex}
-  .serv-grid{grid-template-columns:1fr 1fr}
-  .port-grid,.maq-grid{grid-template-columns:1fr 1fr}
-  .plans-grid{grid-template-columns:1fr}
-  .proc-steps{grid-template-columns:1fr 1fr;gap:24px}
-  .proc-steps::before{display:none}
-  footer{flex-direction:column;gap:14px;text-align:center}
-  .foot-links{justify-content:center}
-  .fr,.fcbs{grid-template-columns:1fr}
-  .hero-stats{gap:18px}
-  .cmp-wrap{overflow-x:auto}
-}
-@media(max-width:500px){
-  .serv-grid,.port-grid,.maq-grid{grid-template-columns:1fr}
+nav{padding:14px 20px}
+.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;padding:24px;gap:20px;border-bottom:1px solid var(--green-glow)}
+.nav-links.open{display:flex}
+.menu-toggle{display:flex}
+.stats{flex-wrap:wrap;gap:32px}
+.form-row{grid-template-columns:1fr}
+.contact-grid{grid-template-columns:1fr}
+.hero h1{font-size:36px}
+.process-step{flex-direction:column;gap:16px}
+.process-step:not(:last-child)::after{display:none}
 }
 </style>
 </head>
 <body>
+<div class="grid-bg"></div>
 
-<!-- ── NAV ── -->
-<nav id="nav">
-  <a href="#hero" class="nav-logo">
-    <div class="nav-mark">N</div>
-    <div>
-      <div class="nav-name">Nex<span>IA</span> Studio</div>
-    </div>
-  </a>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#portfolio">Réalisations</a>
-    <a href="#maquettes">Maquettes</a>
-    <a href="#tarifs">Tarifs</a>
-    <a href="#devis">Devis IA</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <a href="#devis" class="nav-cta">Devis gratuit</a>
-  <div class="burger" onclick="toggleMenu()" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </div>
+<!-- NAV -->
+<nav>
+<a href="#accueil" class="nav-logo">
+<svg viewBox="0 0 48 48" width="32" height="32"><polygon points="24,4 44,15 44,37 24,48 4,37 4,15" fill="none" stroke="#1D9E75" stroke-width="1.5"/><line x1="24" y1="4" x2="24" y2="26" stroke="#5DCAA5" stroke-width=".5" opacity=".7"/><line x1="4" y1="15" x2="24" y2="26" stroke="#5DCAA5" stroke-width=".5" opacity=".7"/><line x1="44" y1="15" x2="24" y2="26" stroke="#5DCAA5" stroke-width=".5" opacity=".7"/><line x1="4" y1="37" x2="24" y2="26" stroke="#5DCAA5" stroke-width=".5" opacity=".7"/><line x1="44" y1="37" x2="24" y2="26" stroke="#5DCAA5" stroke-width=".5" opacity=".7"/><line x1="24" y1="48" x2="24" y2="26" stroke="#5DCAA5" stroke-width=".5" opacity=".7"/><circle cx="24" cy="26" r="3.5" fill="#1D9E75"/><circle cx="24" cy="26" r="1.5" fill="#a0ffd8"/></svg>
+Nex<span>IA</span> Studio
+</a>
+<button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+<span></span><span></span><span></span>
+</button>
+<div class="nav-links">
+<a href="#accueil" class="active">Accueil</a>
+<a href="#services">Services</a>
+<a href="#methode">Méthode</a>
+<a href="#portfolio">Portfolio</a>
+<a href="#devis">Devis</a>
+<a href="#contact" class="nav-cta">Contact</a>
+</div>
 </nav>
-<div class="mob-menu" id="mob-menu">
-  <a href="#services" onclick="closeMenu()">Services</a>
-  <a href="#portfolio" onclick="closeMenu()">Réalisations</a>
-  <a href="#maquettes" onclick="closeMenu()">Maquettes</a>
-  <a href="#tarifs" onclick="closeMenu()">Tarifs</a>
-  <a href="#devis" onclick="closeMenu()">Devis IA</a>
-  <a href="#contact" onclick="closeMenu()">Contact</a>
-  <a href="#devis" class="mob-cta" onclick="closeMenu()">Devis gratuit →</a>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+<div class="hero-content">
+<div class="hero-badge">// agence digitale propulsée par l'IA</div>
+<h1>On construit le <span class="accent">digital</span> qui fait la différence</h1>
+<p>Sites web, applications, modélisation 3D et solutions IA sur mesure. Basé à Lyon, on transforme vos idées en produits qui performent.</p>
+<div class="hero-buttons">
+<a href="#devis" class="btn-primary">Estimer mon projet</a>
+<a href="#services" class="btn-secondary">Découvrir nos services</a>
+</div>
+</div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+<div class="stat"><div class="stat-num">50+</div><div class="stat-label">Projets livrés</div></div>
+<div class="stat"><div class="stat-num">48h</div><div class="stat-label">Temps de réponse</div></div>
+<div class="stat"><div class="stat-num">100%</div><div class="stat-label">Sur mesure</div></div>
+<div class="stat"><div class="stat-num">Lyon</div><div class="stat-label">Basé en France</div></div>
 </div>
 
-<!-- ── HERO ── -->
-<section id="hero">
-  <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-glow2"></div>
-  </div>
-  <div class="hero-content">
-    <div class="htag"><div class="htag-dot"></div>Agence IA — Lyon</div>
-    <h1 class="hero-title">Design. Code.<br><em>Intelligence.</em></h1>
-    <p class="hero-sub">Sites web, applications, maquettes et documents professionnels — conçus par l'IA, livrés 10× plus vite, à des tarifs accessibles.</p>
-    <div class="hero-btns">
-      <a href="#devis" class="btn-p">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-        Obtenir mon devis IA
-      </a>
-      <a href="#portfolio" class="btn-s">Voir nos réalisations →</a>
-    </div>
-    <div class="hero-stats">
-      <div><div class="hs-val">10×</div><div class="hs-lbl">Plus rapide</div></div>
-      <div><div class="hs-val">360°</div><div class="hs-lbl">Clé en main</div></div>
-      <div><div class="hs-val">IA</div><div class="hs-lbl">Native</div></div>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="hcard reveal">
-      <div class="hcard-head"><div class="hcard-t">Site e-commerce — En cours</div><div class="hbadge live">Live</div></div>
-      <div class="hbar hbar-gold"><div class="hbar-f" id="hb1" style="width:0%"></div></div>
-      <div class="hrow"><span>Avancement projet</span><span id="hp1" style="color:var(--gold)">0%</span></div>
-    </div>
-    <div class="hcard reveal">
-      <div class="hcard-head"><div class="hcard-t">Devis générés ce mois</div><div class="hbadge">IA Active</div></div>
-      <div class="hnum" id="hcount">0</div>
-      <div class="hrow"><span>Taux de conversion</span><span style="color:var(--gold)">74%</span></div>
-    </div>
-    <div class="hcard reveal">
-      <div class="hcard-head"><div class="hcard-t">Satisfaction client</div><div class="hbadge">★★★★★</div></div>
-      <div class="hbar hbar-green"><div class="hbar-f" id="hb2" style="width:0%"></div></div>
-      <div class="hrow"><span>Score moyen</span><span style="color:var(--green)">98 / 100</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ACCROCHE ── -->
-<div id="accroche">
-  <div class="acc-inner">
-    <p class="acc-q">Pendant que vos concurrents attendent,<br><em>vous, vous avancez.</em></p>
-    <p class="acc-s">NexIA Studio livre en jours ce que d'autres font en mois — qualité premium, tarifs accessibles, résultat qui impressionne dès le premier regard.</p>
-    <div class="acc-pills">
-      <div class="acc-pill">Livraison express garantie</div>
-      <div class="acc-pill">Résultats visibles dès J+7</div>
-      <div class="acc-pill">Sans compétences techniques</div>
-      <div class="acc-pill">Qualité premium</div>
-    </div>
-  </div>
+<!-- SERVICES -->
+<section id="services">
+<div class="section-header fade-in">
+<div class="section-tag">// services</div>
+<div class="section-title">Tout ce qu'il faut pour exister en ligne</div>
+<p class="section-desc">Du site vitrine à l'application IA complexe, on couvre toute la chaîne.</p>
 </div>
-
-<!-- ── SERVICES ── -->
-<section id="services" class="sec">
-  <div class="sec-head">
-    <div class="sec-label">Ce que nous faisons</div>
-    <h2 class="sec-title">Solutions digitales complètes<br>propulsées par l'IA</h2>
-    <p class="sec-sub">De la conception à la livraison — sites web, apps, maquettes 3D et documents professionnels générés par IA.</p>
-  </div>
-  <div class="serv-grid">
-    <div class="serv-c reveal">
-      <div class="serv-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-      <div class="serv-name">Création de sites web</div>
-      <p class="serv-desc">Sites vitrines, e-commerce, portails corporate. Design IA sur-mesure, SEO et 100% responsive.</p>
-      <div class="serv-tags"><span class="stag">React</span><span class="stag">Next.js</span><span class="stag">CMS</span><span class="stag">SEO</span></div>
-    </div>
-    <div class="serv-c reveal">
-      <div class="serv-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
-      <div class="serv-name">Applications mobiles & web</div>
-      <p class="serv-desc">Applications métier, SaaS, outils internes. Full-stack avec intégration IA native.</p>
-      <div class="serv-tags"><span class="stag">iOS</span><span class="stag">Android</span><span class="stag">API</span><span class="stag">PWA</span></div>
-    </div>
-    <div class="serv-c reveal">
-      <div class="serv-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-      <div class="serv-name">Modélisation & maquettes 3D</div>
-      <p class="serv-desc">Prototypage visuel, rendu architectural, maquettes interactives pour valider vos projets.</p>
-      <div class="serv-tags"><span class="stag">3D IA</span><span class="stag">Rendu</span><span class="stag">Prototype</span></div>
-    </div>
-    <div class="serv-c reveal">
-      <div class="serv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-      <div class="serv-name">Plans & documents professionnels</div>
-      <p class="serv-desc">Fiches techniques, plans d'exécution, nomenclatures et cahiers des charges générés par IA.</p>
-      <div class="serv-tags"><span class="stag">PDF</span><span class="stag">CAO</span><span class="stag">Technique</span></div>
-    </div>
-  </div>
+<div class="services-grid">
+<div class="service-card fade-in">
+<div class="service-icon">🌐</div>
+<h3>Sites web & landing pages</h3>
+<p>Sites vitrines modernes, landing pages qui convertissent, e-commerce. Responsive, rapides, optimisés SEO.</p>
+<div class="price">À partir de 1 490€</div>
+</div>
+<div class="service-card fade-in">
+<div class="service-icon">📱</div>
+<h3>Applications web & mobile</h3>
+<p>PWA, dashboards, outils métier, CRM sur mesure. Interfaces fluides connectées à vos données.</p>
+<div class="price">À partir de 2 490€</div>
+</div>
+<div class="service-card fade-in">
+<div class="service-icon">🤖</div>
+<h3>Solutions IA & automatisation</h3>
+<p>Chatbots intelligents, automatisation de process, analyse de données, génération de contenu par IA.</p>
+<div class="price">À partir de 1 890€</div>
+</div>
+<div class="service-card fade-in">
+<div class="service-icon">🧊</div>
+<h3>Modélisation 3D</h3>
+<p>Modèles 3D produit, rendus réalistes, animations, visualisation architecturale et industrielle.</p>
+<div class="price">À partir de 1 490€</div>
+</div>
+<div class="service-card fade-in">
+<div class="service-icon">📄</div>
+<h3>Documents professionnels</h3>
+<p>Brochures, présentations, rapports techniques, notices. Mise en page pro et contenu percutant.</p>
+<div class="price">À partir de 1 190€</div>
+</div>
+<div class="service-card fade-in">
+<div class="service-icon">♾️</div>
+<h3>NexIA Infinity</h3>
+<p>Abonnement mensuel : maintenance, mises à jour, support prioritaire et évolutions continues de vos projets.</p>
+<div class="price">249€/mois</div>
+</div>
+</div>
 </section>
 
-<!-- ── PORTFOLIO ── -->
-<section id="portfolio" class="sec">
-  <div class="sec-head">
-    <div class="sec-label">Nos réalisations</div>
-    <h2 class="sec-title">Aperçu des sites & apps<br>générés par IA</h2>
-    <p class="sec-sub">Chaque projet est unique, conçu sur-mesure par notre IA en quelques jours. Cliquez pour voir l'aperçu en détail.</p>
-  </div>
-  <div class="port-tabs">
-    <button class="port-tab active" onclick="switchTab('sites')">Sites web</button>
-    <button class="port-tab" onclick="switchTab('apps')">Applications</button>
-    <button class="port-tab" onclick="switchTab('ecommerce')">E-commerce</button>
-    <button class="port-tab" onclick="switchTab('dashboard')">Dashboards</button>
-  </div>
-
-  <!-- Sites web -->
-  <div class="port-panel active" id="panel-sites">
-    <div class="port-grid">
-      <div class="port-card reveal" onclick="openModal('site-agence','Agence Créative','Site vitrine moderne pour une agence de communication. Design IA, animations CSS, SEO optimisé.','React / Next.js / Tailwind')">
-        <div class="port-preview">
-          <div class="mock-site">
-            <div class="m1-nav"><div class="m1-logo"></div><span style="margin-left:4px;font-weight:700">AgenCE</span><span style="margin-left:auto;font-size:6px;opacity:.6">Accueil — Services — Contact</span></div>
-            <div class="m1-hero"><div class="m1-h">Agence Créative IA</div><div style="font-size:6px;color:#888;margin-bottom:6px">Design sur-mesure, livré en 7 jours</div><div class="m1-btn">Découvrir →</div></div>
-            <div class="m1-grid">
-              <div class="m1-card"><div class="m1-card-icon"></div><div class="m1-card-t">Design</div><div class="m1-card-d">Identité visuelle complète</div></div>
-              <div class="m1-card"><div class="m1-card-icon" style="background:#d0c0e0"></div><div class="m1-card-t">Dev</div><div class="m1-card-d">Code propre & rapide</div></div>
-              <div class="m1-card"><div class="m1-card-icon" style="background:#c0d8e0"></div><div class="m1-card-t">SEO</div><div class="m1-card-d">Top Google garanti</div></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">Site vitrine</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Site vitrine</div>
-          <div class="port-name">Agence Créative</div>
-          <div class="port-tech">React / Next.js — Formule Pro</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('site-resto','Restaurant Gastronomique','Site élégant pour restaurant haut de gamme. Réservation en ligne, menu interactif, galerie photos IA.','HTML5 / CSS3 / JS')">
-        <div class="port-preview">
-          <div class="mock-site" style="background:#0f111a">
-            <div style="background:#1a1d2e;padding:6px 10px;display:flex;justify-content:space-between;align-items:center"><span style="color:var(--gold);font-size:9px;font-weight:700;font-family:serif">Le Jardin</span><span style="font-size:6px;color:rgba(255,255,255,.5)">Menu — Réserver</span></div>
-            <div style="background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.7)),#2a1a0a;padding:18px 10px;text-align:center">
-              <div style="font-size:10px;color:var(--gold);font-family:serif;margin-bottom:3px">Restaurant Gastronomique</div>
-              <div style="font-size:6px;color:rgba(255,255,255,.6);margin-bottom:6px">Cuisine raffinée depuis 1998</div>
-              <div style="background:var(--gold);color:#fff;padding:3px 8px;font-size:6px;display:inline-block">Réserver une table</div>
-            </div>
-            <div style="padding:6px 10px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
-              <div style="background:#1a1d2e;height:22px;border:1px solid rgba(184,137,58,.2)"></div>
-              <div style="background:#1a1d2e;height:22px;border:1px solid rgba(184,137,58,.2)"></div>
-              <div style="background:#1a1d2e;height:22px;border:1px solid rgba(184,137,58,.2)"></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">Site vitrine</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Site vitrine dark</div>
-          <div class="port-name">Restaurant Gastronomique</div>
-          <div class="port-tech">HTML5 / CSS3 — Formule Starter</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('site-cabinet','Cabinet Médical','Portail patient complet avec prise de RDV, dossiers médicaux sécurisés et formulaires en ligne.','Vue.js / Laravel')">
-        <div class="port-preview">
-          <div class="mock-site">
-            <div style="background:#fff;border-bottom:1px solid #e0e0e0;padding:6px 10px;display:flex;align-items:center;gap:6px">
-              <div style="width:10px;height:10px;background:#2d8a5e;border-radius:50%"></div>
-              <span style="font-size:8px;font-weight:700;color:#1a1a2e">MédiCare</span>
-              <span style="margin-left:auto;font-size:6px;color:#888">Accueil — RDV — Contact</span>
-            </div>
-            <div style="background:linear-gradient(135deg,#edfaf3,#fff);padding:14px 10px;text-align:center">
-              <div style="font-size:10px;font-weight:700;color:#1a1a2e;margin-bottom:3px">Cabinet Médical</div>
-              <div style="font-size:6px;color:#888;margin-bottom:6px">Prenez rendez-vous en ligne</div>
-              <div style="background:#2d8a5e;color:#fff;padding:3px 8px;font-size:6px;display:inline-block">Prendre RDV</div>
-            </div>
-            <div style="padding:6px 10px;display:grid;grid-template-columns:1fr 1fr;gap:4px">
-              <div style="background:#f5f5f5;padding:5px;border-radius:2px"><div style="font-size:6px;font-weight:600;color:#1a1a2e">Dr. Martin</div><div style="font-size:5px;color:#888">Généraliste</div></div>
-              <div style="background:#f5f5f5;padding:5px;border-radius:2px"><div style="font-size:6px;font-weight:600;color:#1a1a2e">Dr. Leblanc</div><div style="font-size:5px;color:#888">Cardiologue</div></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">Portail santé</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Portail médical</div>
-          <div class="port-name">Cabinet Médical</div>
-          <div class="port-tech">Vue.js / Laravel — Formule Business</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Apps -->
-  <div class="port-panel" id="panel-apps">
-    <div class="port-grid">
-      <div class="port-card reveal" onclick="openModal('app-gestion','App de Gestion Métier','Application mobile iOS/Android pour la gestion de chantiers. Suivi temps réel, devis, facturation.','React Native / Node.js')">
-        <div class="port-preview" style="background:#0f111a;display:flex;align-items:center;justify-content:center">
-          <div style="width:90px;background:#1a1d2e;border-radius:12px;padding:8px 7px;box-shadow:0 0 20px rgba(0,0,0,.5)">
-            <div class="m2-status"><span>9:41</span><span>●●●</span></div>
-            <div class="m2-header"><div class="m2-dot"></div>BuildTrack</div>
-            <div style="height:4px"></div>
-            <div class="m2-grid">
-              <div class="m2-card"><div class="m2-num">12</div><div>Chantiers actifs</div></div>
-              <div class="m2-card"><div class="m2-num" style="color:#6fcf97">€24k</div><div>Ce mois</div></div>
-            </div>
-            <div style="height:4px"></div>
-            <div class="m2-card"><div style="font-size:6px;color:rgba(255,255,255,.5);margin-bottom:3px">Avancement global</div><div class="m2-bar"><div class="m2-bar-f" style="width:68%"></div></div><div style="font-size:6px;color:var(--gold);text-align:right">68%</div></div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">App mobile</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Application mobile</div>
-          <div class="port-name">App Gestion Chantiers</div>
-          <div class="port-tech">React Native — Formule Business</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('app-rh','App RH Entreprise','Application web de gestion RH : congés, fiches de paie, planning. Intégration IA pour l\'analyse.','Next.js / PostgreSQL')">
-        <div class="port-preview" style="background:#f5f2ec">
-          <div style="background:#fff;border:1px solid #e0e0e0;border-radius:6px;width:85%;margin:12px auto;padding:10px;font-size:6px">
-            <div style="display:flex;align-items:center;gap:5px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #e0e0e0">
-              <div style="width:8px;height:8px;background:#b8893a;border-radius:50%"></div>
-              <span style="font-size:7.5px;font-weight:700;color:#1a1a2e">PeopleApp RH</span>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:6px">
-              <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:5px;text-align:center"><div style="font-size:9px;font-weight:700;color:var(--gold)">48</div><div style="color:#888">Employés</div></div>
-              <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:5px;text-align:center"><div style="font-size:9px;font-weight:700;color:#2d8a5e">5</div><div style="color:#888">En congé</div></div>
-              <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:5px;text-align:center"><div style="font-size:9px;font-weight:700;color:#1a1a2e">12</div><div style="color:#888">Recrutements</div></div>
-            </div>
-            <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:5px"><div style="color:#888;margin-bottom:2px">Planning semaine</div><div style="display:flex;gap:2px">${['L','M','M','J','V'].map(d=>`<div style="flex:1;background:#b8893a20;border:1px solid #e0d0b0;padding:2px;text-align:center;color:var(--gold);font-weight:600">${d}</div>`).join('')}</div></div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">App web</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Application web</div>
-          <div class="port-name">App RH Entreprise</div>
-          <div class="port-tech">Next.js / PostgreSQL — Formule Pro</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('app-ia','Assistant IA Intégré','Application SaaS avec IA générative intégrée pour la rédaction, analyse et automatisation de tâches.','React / Claude API')">
-        <div class="port-preview" style="background:#0f111a">
-          <div style="width:90%;margin:8px auto;background:#1a1d2e;border-radius:4px;padding:8px;font-size:6px">
-            <div style="display:flex;align-items:center;gap:5px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:6px">
-              <div style="width:8px;height:8px;background:var(--purp);border-radius:50%;animation:blink 1.5s infinite"></div>
-              <span style="color:#fff;font-weight:600;font-size:7.5px">NexIA Assistant</span>
-            </div>
-            <div style="background:rgba(124,92,191,.1);border:1px solid rgba(124,92,191,.25);border-radius:3px;padding:5px;color:rgba(255,255,255,.7);margin-bottom:4px;line-height:1.5">🤖 Bonjour ! Je suis votre assistant IA. Que puis-je faire pour vous aujourd'hui ?</div>
-            <div style="background:rgba(184,137,58,.1);border:1px solid rgba(184,137,58,.2);border-radius:3px;padding:5px;color:var(--gold);margin-bottom:4px;line-height:1.5;text-align:right">Rédige-moi un email de prospection pour mon client...</div>
-            <div style="display:flex;gap:4px"><input style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;padding:4px 6px;font-size:6px;outline:none" placeholder="Votre message..."><div style="background:var(--purp);color:#fff;padding:4px 6px;cursor:pointer;font-size:6px">→</div></div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">SaaS IA</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">SaaS avec IA</div>
-          <div class="port-name">Assistant IA Intégré</div>
-          <div class="port-tech">React / Claude API — Formule Business</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Ecommerce -->
-  <div class="port-panel" id="panel-ecommerce">
-    <div class="port-grid">
-      <div class="port-card reveal" onclick="openModal('shop-mode','Boutique Mode','Boutique e-commerce mode avec catalogue IA, recommandations personnalisées et paiement en ligne.','Next.js / Stripe')">
-        <div class="port-preview">
-          <div class="mock-site">
-            <div class="m5-nav"><div class="m5-logo">MODO</div><div class="m5-cart">🛒 3</div></div>
-            <div class="m5-hero"><h3>Collection Printemps</h3><p>Livraison gratuite dès 50€</p></div>
-            <div class="m5-prods">
-              <div class="m5-prod"><div class="m5-img"></div><div class="m5-pname">Robe Élégance</div><div class="m5-price">€89</div></div>
-              <div class="m5-prod"><div class="m5-img" style="background:linear-gradient(135deg,#d0c8e0,#c0b8d8)"></div><div class="m5-pname">Veste Urban</div><div class="m5-price">€145</div></div>
-              <div class="m5-prod"><div class="m5-img" style="background:linear-gradient(135deg,#c8d8c0,#b8c8b0)"></div><div class="m5-pname">Sac Cuir</div><div class="m5-price">€210</div></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">E-commerce</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Boutique en ligne</div>
-          <div class="port-name">Boutique Mode</div>
-          <div class="port-tech">Next.js / Stripe — Formule Pro</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('shop-bio','Épicerie Bio','Site e-commerce alimentaire avec panier, abonnement livraison hebdomadaire et gestion de stock IA.','Vue.js / WooCommerce')">
-        <div class="port-preview">
-          <div class="mock-site" style="background:#f5faf0">
-            <div style="background:#2d5a1e;color:#fff;padding:5px 8px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:8px;font-weight:700">🌿 NaturBio</span><span style="font-size:6px;opacity:.7">Livraison dom.</span></div>
-            <div style="padding:10px 8px;background:linear-gradient(135deg,#e8f5e0,#f5faf0);text-align:center">
-              <div style="font-size:9px;font-weight:700;color:#2d5a1e;margin-bottom:3px">Épicerie Bio & Local</div>
-              <div style="font-size:6px;color:#5a8a4a;margin-bottom:5px">Produits frais livrés chez vous</div>
-              <div style="background:#2d5a1e;color:#fff;padding:3px 8px;font-size:6px;display:inline-block">Commander</div>
-            </div>
-            <div style="padding:5px 8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">
-              <div style="background:#fff;border:1px solid #d0e8c0;padding:4px;text-align:center"><div style="font-size:12px">🥕</div><div style="font-size:5.5px;color:#2d5a1e;font-weight:600">Légumes</div><div style="font-size:6px;color:var(--gold)">€3.50</div></div>
-              <div style="background:#fff;border:1px solid #d0e8c0;padding:4px;text-align:center"><div style="font-size:12px">🍎</div><div style="font-size:5.5px;color:#2d5a1e;font-weight:600">Fruits</div><div style="font-size:6px;color:var(--gold)">€4.20</div></div>
-              <div style="background:#fff;border:1px solid #d0e8c0;padding:4px;text-align:center"><div style="font-size:12px">🥛</div><div style="font-size:5.5px;color:#2d5a1e;font-weight:600">Laitiers</div><div style="font-size:6px;color:var(--gold)">€2.80</div></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">E-commerce food</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Épicerie en ligne</div>
-          <div class="port-name">Épicerie Bio</div>
-          <div class="port-tech">Vue.js / WooCommerce — Formule Pro</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('shop-tech','Tech Store B2B','Marketplace B2B pour équipements techniques. Devis automatique, catalogue IA, compte client.','React / Salesforce')">
-        <div class="port-preview">
-          <div class="mock-site" style="background:#0f111a">
-            <div style="background:#1a1d2e;padding:5px 8px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(184,137,58,.2)">
-              <span style="font-size:8px;font-weight:700;color:var(--gold)">TechPro B2B</span>
-              <span style="margin-left:auto;font-size:5px;color:rgba(255,255,255,.4)">Catalogue — Devis — Compte</span>
-            </div>
-            <div style="padding:10px 8px;background:linear-gradient(135deg,#1a1d2e,#252840);text-align:center">
-              <div style="font-size:9px;font-weight:700;color:#fff;margin-bottom:2px">Équipements Pro</div>
-              <div style="font-size:6px;color:rgba(255,255,255,.5);margin-bottom:6px">Devis en 30 secondes par IA</div>
-              <div style="background:var(--gold);color:#fff;padding:3px 8px;font-size:6px;display:inline-block">Demander un devis</div>
-            </div>
-            <div style="padding:5px 8px;display:grid;grid-template-columns:1fr 1fr;gap:4px">
-              <div style="background:#252840;border:1px solid rgba(184,137,58,.15);padding:5px"><div style="font-size:6px;color:var(--gold);font-weight:600">Refroidisseurs</div><div style="font-size:5px;color:rgba(255,255,255,.4)">FoxAir 24 EC, 36 EC...</div></div>
-              <div style="background:#252840;border:1px solid rgba(184,137,58,.15);padding:5px"><div style="font-size:6px;color:var(--gold);font-weight:600">Accessoires</div><div style="font-size:5px;color:rgba(255,255,255,.4)">Pièces, filtres, tuyaux...</div></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">Marketplace B2B</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Marketplace B2B</div>
-          <div class="port-name">Tech Store B2B</div>
-          <div class="port-tech">React / Salesforce — Formule Business</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dashboards -->
-  <div class="port-panel" id="panel-dashboard">
-    <div class="port-grid">
-      <div class="port-card reveal" onclick="openModal('dash-analytics','Dashboard Analytics','Tableau de bord analytics temps réel avec KPIs, graphiques interactifs et rapports IA automatiques.','React / D3.js')">
-        <div class="port-preview" style="background:#0f111a;padding:8px">
-          <div class="m6-wrap" style="padding:0;height:100%">
-            <div class="m6-side">
-              <div class="m6-sicon active"></div>
-              <div class="m6-sicon"></div>
-              <div class="m6-sicon"></div>
-              <div class="m6-sicon"></div>
-            </div>
-            <div class="m6-main">
-              <div class="m6-stats">
-                <div class="m6-stat"><div class="m6-stat-v">€47k</div><div class="m6-stat-l">Revenus</div></div>
-                <div class="m6-stat"><div class="m6-stat-v" style="color:#6fcf97">+12%</div><div class="m6-stat-l">Croissance</div></div>
-                <div class="m6-stat"><div class="m6-stat-v" style="color:var(--purp2)">1.2k</div><div class="m6-stat-l">Clients</div></div>
-              </div>
-              <div class="m6-chart">
-                <div style="font-size:5.5px;color:rgba(255,255,255,.35);margin-bottom:4px">Revenus mensuels</div>
-                <div class="m6-bars">
-                  <div class="m6-bar" style="height:40%"></div>
-                  <div class="m6-bar" style="height:65%"></div>
-                  <div class="m6-bar" style="height:55%"></div>
-                  <div class="m6-bar" style="height:80%"></div>
-                  <div class="m6-bar hi" style="height:90%"></div>
-                  <div class="m6-bar" style="height:70%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">Dashboard</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Dashboard analytics</div>
-          <div class="port-name">Analytics Pro</div>
-          <div class="port-tech">React / D3.js — Formule Pro</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('dash-crm','CRM Intelligent','CRM avec IA intégrée : scoring leads automatique, prédiction des ventes, rapports générés en un clic.','Vue.js / Python IA')">
-        <div class="port-preview" style="background:#f5f2ec">
-          <div style="background:#fff;border:1px solid #e0e0e0;border-radius:4px;width:90%;margin:8px auto;padding:8px;font-size:6px">
-            <div style="display:flex;align-items:center;gap:5px;border-bottom:1px solid #e0e0e0;padding-bottom:5px;margin-bottom:6px">
-              <div style="width:8px;height:8px;background:var(--purp);border-radius:50%"></div>
-              <span style="font-size:7.5px;font-weight:700;color:#1a1a2e">CRM IA</span>
-              <span style="margin-left:auto;background:var(--purp);color:#fff;padding:1px 5px;font-size:5px">IA Active</span>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:5px">
-              <div style="background:#f8f6fe;border:1px solid #e0d8f5;padding:4px"><div style="font-size:9px;font-weight:700;color:var(--purp)">94</div><div style="color:#888">Leads chauds</div></div>
-              <div style="background:#f8f6fe;border:1px solid #e0d8f5;padding:4px"><div style="font-size:9px;font-weight:700;color:var(--gold)">€182k</div><div style="color:#888">Pipeline</div></div>
-            </div>
-            <div style="background:#f8f6fe;border:1px solid #e0d8f5;padding:4px"><div style="color:#888;margin-bottom:2px">Score IA — Leads prioritaires</div>${['Martin, SAS — 94%','Dupont SARL — 87%','Lemaire SA — 81%'].map(l=>`<div style="display:flex;justify-content:space-between;padding:1px 0;color:#333"><span>${l.split('—')[0]}</span><span style="color:var(--purp);font-weight:600">${l.split('—')[1]}</span></div>`).join('')}</div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">CRM IA</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">CRM intelligent</div>
-          <div class="port-name">CRM avec IA</div>
-          <div class="port-tech">Vue.js / Python IA — Formule Business</div>
-        </div>
-      </div>
-      <div class="port-card reveal" onclick="openModal('dash-immo','Dashboard Immobilier','Portail immobilier avec IA : estimation automatique, matching bien/acheteur, rapports de marché.','React / ML')">
-        <div class="port-preview">
-          <div class="mock-site">
-            <div style="background:#1a1a2e;color:#fff;padding:6px 10px;display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;background:var(--gold);border-radius:2px"></div><span style="font-size:8px;font-weight:700">ImmoIA</span><span style="margin-left:auto;font-size:5px;opacity:.6">Estimer — Chercher — Vendre</span></div>
-            <div style="background:linear-gradient(135deg,#f0e8d8,#fdfaf5);padding:12px 8px;text-align:center">
-              <div style="font-size:9px;font-weight:700;color:#1a1a2e;margin-bottom:3px">Estimer votre bien par IA</div>
-              <div style="display:flex;gap:3px;max-width:120px;margin:0 auto 5px"><input style="flex:1;border:1px solid #e0e0e0;padding:3px 5px;font-size:6px;outline:none" placeholder="Votre adresse..."><div style="background:#b8893a;color:#fff;padding:3px 6px;font-size:6px;cursor:pointer">→</div></div>
-            </div>
-            <div style="padding:5px 8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">
-              <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:4px;text-align:center"><div style="font-size:9px;font-weight:700;color:var(--gold)">248</div><div style="font-size:5px;color:#888">Biens</div></div>
-              <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:4px;text-align:center"><div style="font-size:9px;font-weight:700;color:#2d8a5e">+8%</div><div style="font-size:5px;color:#888">Marché</div></div>
-              <div style="background:#fdfaf5;border:1px solid #e0ddd6;padding:4px;text-align:center"><div style="font-size:9px;font-weight:700;color:#1a1a2e">IA</div><div style="font-size:5px;color:#888">Matching</div></div>
-            </div>
-          </div>
-          <div class="port-overlay"><button class="port-overlay-btn">Voir l'aperçu</button></div>
-          <div class="maq-label">Portail immo</div>
-        </div>
-        <div class="port-info">
-          <div class="port-cat">Portail immobilier</div>
-          <div class="port-name">Dashboard Immobilier</div>
-          <div class="port-tech">React / ML — Formule Business</div>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- METHODE -->
+<section id="methode" style="background:var(--bg2);border-top:1px solid var(--green-glow);border-bottom:1px solid var(--green-glow)">
+<div class="section-header fade-in">
+<div class="section-tag">// méthode</div>
+<div class="section-title">Du brief au lancement en 4 étapes</div>
+<p class="section-desc">Un process clair, transparent, sans surprise.</p>
+</div>
+<div class="process">
+<div class="process-step fade-in">
+<div class="step-num">01</div>
+<div class="step-content">
+<h3>Brief & cadrage</h3>
+<p>On échange sur votre besoin, vos objectifs, vos contraintes. On définit ensemble le périmètre et le budget. Vous recevez un devis détaillé sous 48h.</p>
+</div>
+</div>
+<div class="process-step fade-in">
+<div class="step-num">02</div>
+<div class="step-content">
+<h3>Maquette & validation</h3>
+<p>On vous présente une maquette interactive. Vous validez le design, l'ergonomie et le contenu avant qu'on code une seule ligne.</p>
+</div>
+</div>
+<div class="process-step fade-in">
+<div class="step-num">03</div>
+<div class="step-content">
+<h3>Développement & itérations</h3>
+<p>On construit votre projet avec les meilleures technologies. 2 allers-retours de révision inclus. Vous suivez l'avancement en temps réel.</p>
+</div>
+</div>
+<div class="process-step fade-in">
+<div class="step-num">04</div>
+<div class="step-content">
+<h3>Livraison & support</h3>
+<p>Mise en ligne, formation à la prise en main, et 30 jours de support inclus. Besoin de maintenance continue ? On a NexIA Infinity pour ça.</p>
+</div>
+</div>
+</div>
 </section>
 
-<!-- ── MAQUETTES ── -->
-<section id="maquettes" class="sec">
-  <div class="sec-head">
-    <div class="sec-label">Modélisation & maquettes</div>
-    <h2 class="sec-title">Visualisez votre projet<br>avant de le construire</h2>
-    <p class="sec-sub">Notre IA génère des maquettes interactives, wireframes et rendus 3D pour valider chaque projet avant développement.</p>
-  </div>
-  <div class="maq-grid">
-    <div class="maq-card reveal">
-      <div class="maq-preview" style="background:#0f111a">
-        <div style="perspective:200px;width:100%;height:100%;display:flex;align-items:center;justify-content:center">
-          <div style="width:70px;height:70px;transform-style:preserve-3d;transform:rotateX(-20deg) rotateY(35deg) rotateZ(5deg);position:relative">
-            <div style="position:absolute;width:70px;height:70px;background:rgba(184,137,58,.15);border:1px solid rgba(184,137,58,.5);transform:translateZ(35px)"></div>
-            <div style="position:absolute;width:70px;height:70px;background:rgba(184,137,58,.08);border:1px solid rgba(184,137,58,.3);transform:rotateY(180deg) translateZ(35px)"></div>
-            <div style="position:absolute;width:70px;height:70px;background:rgba(184,137,58,.12);border:1px solid rgba(184,137,58,.4);transform:rotateY(90deg) translateZ(35px)"></div>
-            <div style="position:absolute;width:70px;height:70px;background:rgba(184,137,58,.1);border:1px solid rgba(184,137,58,.35);transform:rotateY(-90deg) translateZ(35px)"></div>
-            <div style="position:absolute;width:70px;height:70px;background:rgba(184,137,58,.2);border:1px solid rgba(184,137,58,.6);transform:rotateX(90deg) translateZ(35px)"></div>
-            <div style="position:absolute;width:70px;height:70px;background:rgba(184,137,58,.06);border:1px solid rgba(184,137,58,.2);transform:rotateX(-90deg) translateZ(35px)"></div>
-          </div>
-        </div>
-        <div class="maq-label">3D IA</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">Modélisation 3D</div>
-        <div class="maq-name">Rendu architectural</div>
-        <p class="maq-desc">Visualisation 3D d'un bâtiment commercial avant construction. Rendu photoréaliste IA.</p>
-        <div class="maq-tags"><span class="maq-tag">3D</span><span class="maq-tag">Architectural</span><span class="maq-tag">IA</span></div>
-      </div>
-    </div>
-    <div class="maq-card reveal">
-      <div class="maq-preview" style="background:#f5f2ec;padding:12px">
-        <div style="background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:10px;font-size:6px;width:100%">
-          <div style="border-bottom:2px solid #1a1a2e;margin-bottom:8px;padding-bottom:5px;display:flex;justify-content:space-between;align-items:center">
-            <div style="font-size:10px;font-weight:700;color:#1a1a2e">Wireframe App</div>
-            <div style="display:flex;gap:3px"><div style="width:5px;height:5px;border-radius:50%;background:#e0e0e0"></div><div style="width:5px;height:5px;border-radius:50%;background:#e0e0e0"></div><div style="width:5px;height:5px;border-radius:50%;background:var(--gold)"></div></div>
-          </div>
-          <div style="display:grid;grid-template-columns:24px 1fr;gap:6px;height:60px">
-            <div style="background:#f0f0f0;border-radius:2px;display:flex;flex-direction:column;gap:3px;padding:4px;align-items:center">
-              ${[1,2,3,4].map(i=>`<div style="width:12px;height:12px;background:#e0e0e0;border-radius:2px"></div>`).join('')}
-            </div>
-            <div style="display:flex;flex-direction:column;gap:3px">
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px">
-                ${[1,2,3].map(()=>`<div style="background:#f8f6fe;border:1px dashed #d0c8f0;height:16px;border-radius:2px"></div>`).join('')}
-              </div>
-              <div style="background:#f0e8d8;border:1px dashed #d4a85a;height:30px;border-radius:2px;display:flex;align-items:center;justify-content:center;color:#b8893a;font-size:6px">Chart Area</div>
-            </div>
-          </div>
-        </div>
-        <div class="maq-label">Wireframe</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">Wireframe</div>
-        <div class="maq-name">Interface dashboard</div>
-        <p class="maq-desc">Wireframe complet d'une application web avec navigation, KPIs et zone graphique.</p>
-        <div class="maq-tags"><span class="maq-tag">Wireframe</span><span class="maq-tag">UX</span><span class="maq-tag">Dashboard</span></div>
-      </div>
-    </div>
-    <div class="maq-card reveal">
-      <div class="maq-preview" style="background:#0f111a;display:flex;align-items:center;justify-content:center;gap:10px">
-        <div style="width:55px;background:#1a1d2e;border-radius:8px;padding:6px 5px;font-size:5.5px">
-          <div style="display:flex;justify-content:space-between;color:rgba(255,255,255,.4);margin-bottom:3px"><span>9:41</span><span>●●</span></div>
-          <div style="background:#252840;border-radius:3px;padding:4px;margin-bottom:3px"><div style="font-size:7px;font-weight:700;color:var(--gold)">HomeApp</div></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2px">
-            <div style="background:#252840;border-radius:2px;padding:3px;text-align:center"><div style="font-size:8px">💡</div><div style="font-size:4.5px;color:rgba(255,255,255,.5)">Salon</div></div>
-            <div style="background:#252840;border-radius:2px;padding:3px;text-align:center"><div style="font-size:8px">🌡</div><div style="font-size:4.5px;color:rgba(255,255,255,.5)">22°C</div></div>
-          </div>
-          <div style="background:rgba(184,137,58,.15);border:1px solid rgba(184,137,58,.3);border-radius:2px;padding:3px;text-align:center;color:var(--gold);font-size:4.5px">IA Scénarios</div>
-        </div>
-        <div style="width:45px;background:#1a1d2e;border-radius:6px;padding:5px 4px;font-size:5px;opacity:.7">
-          <div style="display:flex;justify-content:space-between;color:rgba(255,255,255,.3);margin-bottom:2px"><span>9:41</span><span>●</span></div>
-          <div style="display:flex;flex-direction:column;gap:2px">
-            <div style="background:#252840;height:10px;border-radius:2px"></div>
-            <div style="background:#252840;height:14px;border-radius:2px"></div>
-            <div style="background:#252840;height:8px;border-radius:2px"></div>
-          </div>
-        </div>
-        <div class="maq-label">Prototype mobile</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">Prototype mobile</div>
-        <div class="maq-name">App domotique IA</div>
-        <p class="maq-desc">Prototype interactif d'application mobile pour maison connectée avec scénarios IA.</p>
-        <div class="maq-tags"><span class="maq-tag">Mobile</span><span class="maq-tag">Prototype</span><span class="maq-tag">IoT</span></div>
-      </div>
-    </div>
-    <div class="maq-card reveal">
-      <div class="maq-preview">
-        <div style="background:#fff;height:100%;padding:10px 12px;font-size:6px;color:#333;overflow:hidden">
-          <div style="border-bottom:2px solid #1a1a2e;padding-bottom:5px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div style="font-size:9px;font-weight:800;color:#1a1a2e;letter-spacing:.5px">CAHIER DES CHARGES</div>
-              <div style="font-size:5px;color:#888;margin-top:1px">Projet Web & Application — NexIA Studio</div>
-            </div>
-            <div style="background:#b8893a;color:#fff;font-size:5px;padding:2px 6px;letter-spacing:.5px">IA GÉNÉRÉ</div>
-          </div>
-          <div style="margin-bottom:6px">
-            <div style="font-size:6.5px;font-weight:700;color:#1a1a2e;margin-bottom:2px">Résumé exécutif</div>
-            <div style="background:#fdfaf5;border-left:2px solid #b8893a;padding:3px 5px;color:#555;line-height:1.5">Développement d'une plateforme SaaS avec tableau de bord, gestion utilisateurs et module de facturation automatique.</div>
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px">
-            <div style="background:#f5f2ec;border:1px solid #e0ddd6;padding:4px">
-              <div style="font-size:5.5px;color:#888;margin-bottom:1px">Budget estimé</div>
-              <div style="font-size:9px;font-weight:700;color:#b8893a">1 990 €</div>
-            </div>
-            <div style="background:#f5f2ec;border:1px solid #e0ddd6;padding:4px">
-              <div style="font-size:5.5px;color:#888;margin-bottom:1px">Délai livraison</div>
-              <div style="font-size:9px;font-weight:700;color:#1a1a2e">5 sem.</div>
-            </div>
-          </div>
-          <div style="font-size:6px;font-weight:700;color:#1a1a2e;margin-bottom:3px">Phases du projet</div>
-          ${[['01','Cadrage & maquettes','1 semaine'],['02','Développement front','2 semaines'],['03','Back-end & API','1 semaine'],['04','Tests & livraison','1 semaine']].map(([n,t,d])=>`<div style="display:flex;align-items:center;gap:4px;padding:2px 0;border-bottom:1px solid #f0f0f0"><div style="width:10px;height:10px;background:#b8893a;display:flex;align-items:center;justify-content:center;font-size:5px;font-weight:700;color:#fff;flex-shrink:0">${n}</div><div style="flex:1;color:#333">${t}</div><div style="color:#888">${d}</div></div>`).join('')}
-        </div>
-        <div class="maq-label">Documentation</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">Document professionnel</div>
-        <div class="maq-name">Cahier des charges IA</div>
-        <p class="maq-desc">Cahiers des charges, rapports et livrables structurés générés automatiquement par IA.</p>
-        <div class="maq-tags"><span class="maq-tag">PDF</span><span class="maq-tag">Technique</span><span class="maq-tag">IA</span></div>
-      </div>
-    </div>
-    <div class="maq-card reveal">
-      <div class="maq-preview" style="background:#f5f2ec;padding:10px;display:flex;align-items:center;justify-content:center">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%">
-          <div style="background:#fff;border:1px solid #e0e0e0;border-radius:3px;padding:8px;aspect-ratio:4/3">
-            <div style="background:#1a1a2e;height:18px;border-radius:2px;margin-bottom:4px;display:flex;align-items:center;padding:0 5px"><span style="font-size:5.5px;color:var(--gold);font-weight:700">Header</span></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-bottom:3px">
-              <div style="background:#f0f0f0;height:22px;border-radius:2px;border:1px dashed #ccc"></div>
-              <div style="background:#f0f0f0;height:22px;border-radius:2px;border:1px dashed #ccc"></div>
-            </div>
-            <div style="background:#f0e8d8;height:10px;border-radius:2px;border:1px dashed var(--gold)"></div>
-          </div>
-          <div style="background:#fff;border:2px solid var(--gold);border-radius:3px;padding:8px;aspect-ratio:4/3">
-            <div style="background:var(--gold);height:18px;border-radius:2px;margin-bottom:4px;display:flex;align-items:center;padding:0 5px"><span style="font-size:5.5px;color:#fff;font-weight:700">Validé ✓</span></div>
-            <div style="background:#f0e8d8;height:22px;border-radius:2px;margin-bottom:3px;border:1px solid var(--gold3)"></div>
-            <div style="background:#fdfaf5;height:22px;border-radius:2px;border:1px solid var(--gold3)"></div>
-          </div>
-        </div>
-        <div class="maq-label">Itération design</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">UI / UX Design</div>
-        <div class="maq-name">Itérations de design</div>
-        <p class="maq-desc">Plusieurs versions générées par IA pour tester différentes directions créatives avant validation.</p>
-        <div class="maq-tags"><span class="maq-tag">UI</span><span class="maq-tag">UX</span><span class="maq-tag">Design</span></div>
-      </div>
-    </div>
-    <div class="maq-card reveal">
-      <div class="maq-preview" style="background:#0f111a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px">
-        <div style="display:flex;gap:8px;align-items:center">
-          <div style="background:#1a1d2e;border:1px solid rgba(184,137,58,.3);border-radius:3px;padding:8px 10px;text-align:center">
-            <div style="font-size:6px;color:rgba(255,255,255,.4);margin-bottom:2px">Accueil</div>
-            <div style="width:30px;height:18px;background:rgba(184,137,58,.1);border:1px dashed rgba(184,137,58,.3);border-radius:1px"></div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <svg width="16" height="8" viewBox="0 0 16 8"><path d="M0 4h14M10 1l4 3-4 3" stroke="rgba(184,137,58,.5)" stroke-width="1" fill="none" stroke-linecap="round"/></svg>
-          </div>
-          <div style="background:#1a1d2e;border:1px solid rgba(184,137,58,.3);border-radius:3px;padding:8px 10px;text-align:center">
-            <div style="font-size:6px;color:rgba(255,255,255,.4);margin-bottom:2px">Services</div>
-            <div style="width:30px;height:18px;background:rgba(184,137,58,.1);border:1px dashed rgba(184,137,58,.3);border-radius:1px"></div>
-          </div>
-        </div>
-        <div style="display:flex;gap:4px">
-          ${['Contact','Blog','Shop'].map(p=>`<div style="background:#1a1d2e;border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:4px 7px;text-align:center"><div style="font-size:5.5px;color:rgba(255,255,255,.4)">${p}</div></div>`).join('')}
-        </div>
-        <div class="maq-label">Architecture</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">Architecture site</div>
-        <div class="maq-name">Plan de navigation</div>
-        <p class="maq-desc">Architecture complète d'un site : arborescence, flux utilisateur et mapping des pages.</p>
-        <div class="maq-tags"><span class="maq-tag">Architecture</span><span class="maq-tag">Navigation</span><span class="maq-tag">UX</span></div>
-      </div>
-    </div>
-
-    <div class="maq-card reveal">
-      <div class="maq-preview">
-        <div style="background:#fff;height:100%;padding:10px 12px;font-size:6px;color:#333;overflow:hidden">
-          <div style="border-bottom:2px solid #1a1a2e;padding-bottom:5px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div style="font-size:9px;font-weight:800;color:#1a1a2e;letter-spacing:.5px">BATIPRO CONCEPT</div>
-              <div style="font-size:5px;color:#888;margin-top:1px">Plan & Nomenclature — Projet Aménagement</div>
-            </div>
-            <div style="font-size:5px;color:#888">Réf. BP-2025-047</div>
-          </div>
-          <div style="font-size:6.5px;font-weight:700;color:#1a1a2e;margin-bottom:3px">Nomenclature matériaux</div>
-          <table style="width:100%;border-collapse:collapse;font-size:5.5px">
-            <thead>
-              <tr style="background:#f5f2ec">
-                <th style="border:1px solid #e0ddd6;padding:2px 4px;text-align:left;color:#1a1a2e">Réf.</th>
-                <th style="border:1px solid #e0ddd6;padding:2px 4px;text-align:left;color:#1a1a2e">Désignation</th>
-                <th style="border:1px solid #e0ddd6;padding:2px 4px;text-align:left;color:#1a1a2e">Qté</th>
-                <th style="border:1px solid #e0ddd6;padding:2px 4px;text-align:left;color:#1a1a2e">U.</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td style="border:1px solid #e0ddd6;padding:2px 4px">BP-101</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Dalle béton armé</td><td style="border:1px solid #e0ddd6;padding:2px 4px">24</td><td style="border:1px solid #e0ddd6;padding:2px 4px">m²</td></tr>
-              <tr style="background:#fafafa"><td style="border:1px solid #e0ddd6;padding:2px 4px">BP-102</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Cloison placo 72mm</td><td style="border:1px solid #e0ddd6;padding:2px 4px">36</td><td style="border:1px solid #e0ddd6;padding:2px 4px">ml</td></tr>
-              <tr><td style="border:1px solid #e0ddd6;padding:2px 4px">BP-103</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Menuiserie alu double vitrage</td><td style="border:1px solid #e0ddd6;padding:2px 4px">8</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Pce</td></tr>
-              <tr style="background:#fafafa"><td style="border:1px solid #e0ddd6;padding:2px 4px">BP-104</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Câblage électrique 2.5mm²</td><td style="border:1px solid #e0ddd6;padding:2px 4px">120</td><td style="border:1px solid #e0ddd6;padding:2px 4px">ml</td></tr>
-              <tr><td style="border:1px solid #e0ddd6;padding:2px 4px">BP-105</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Tableau électrique 24 modules</td><td style="border:1px solid #e0ddd6;padding:2px 4px">1</td><td style="border:1px solid #e0ddd6;padding:2px 4px">Kit</td></tr>
-            </tbody>
-          </table>
-          <div style="margin-top:5px;display:flex;justify-content:flex-end;gap:8px;font-size:5.5px">
-            <span style="color:#888">Total estimé :</span>
-            <span style="font-weight:700;color:#b8893a">€ 14 800 HT</span>
-          </div>
-        </div>
-        <div class="maq-label">Plan & nomenclature</div>
-      </div>
-      <div class="maq-info">
-        <div class="maq-type">Plan & nomenclature</div>
-        <div class="maq-name">Projet aménagement bâtiment</div>
-        <p class="maq-desc">Plans détaillés et nomenclatures matériaux générés automatiquement — livrés en PDF structuré et exportable.</p>
-        <div class="maq-tags"><span class="maq-tag">PDF</span><span class="maq-tag">Nomenclature</span><span class="maq-tag">Bâtiment</span></div>
-      </div>
-    </div>
-
-  </div>
+<!-- PORTFOLIO -->
+<section id="portfolio">
+<div class="section-header fade-in">
+<div class="section-tag">// portfolio</div>
+<div class="section-title">Ce qu'on a construit</div>
+<p class="section-desc">Quelques projets récents qui parlent d'eux-mêmes.</p>
+</div>
+<div class="portfolio-grid">
+<div class="portfolio-card fade-in">
+<div class="portfolio-thumb"><div class="mock">🏭</div></div>
+<div class="portfolio-info">
+<h3>App qualité industrielle</h3>
+<p>Application PWA de contrôle qualité avec 102 points de vérification, sync multi-appareils et base de données temps réel.</p>
+<div class="portfolio-tags"><span class="tag">PWA</span><span class="tag">Firebase</span><span class="tag">Industrie</span></div>
+</div>
+</div>
+<div class="portfolio-card fade-in">
+<div class="portfolio-thumb"><div class="mock">⚡</div></div>
+<div class="portfolio-info">
+<h3>Plateforme CRM & gestion</h3>
+<p>Solution tout-en-un : CRM, facturation, gestion de stock, kanban et analytics dashboard pour une PME industrielle.</p>
+<div class="portfolio-tags"><span class="tag">React</span><span class="tag">CRM</span><span class="tag">Dashboard</span></div>
+</div>
+</div>
+<div class="portfolio-card fade-in">
+<div class="portfolio-thumb"><div class="mock">📐</div></div>
+<div class="portfolio-info">
+<h3>Documentation technique</h3>
+<p>Suite complète de nomenclatures PDF, notices interactives et QR codes pour une gamme de produits industriels.</p>
+<div class="portfolio-tags"><span class="tag">PDF</span><span class="tag">Technique</span><span class="tag">QR Code</span></div>
+</div>
+</div>
+</div>
 </section>
 
-<!-- ── TARIFS ── -->
-<section id="tarifs" class="sec">
-  <div class="sec-head">
-    <div class="sec-label">Nos formules</div>
-    <h2 class="sec-title">Tarifs clairs,<br>sans surprises</h2>
-    <p class="sec-sub">4 formules pour s'adapter à tous les projets. Pas de frais cachés, délais garantis.</p>
-  </div>
-  <div class="plans-grid">
-    <div class="plan reveal">
-      <div class="plan-name">Starter</div>
-      <div class="plan-price"><sup>€</sup>390 <small>/ projet</small></div>
-      <p class="plan-desc">Idéal pour démarrer rapidement</p>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Site vitrine 5 pages</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Design sur-mesure</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Responsive mobile</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Mise en ligne incluse</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Support 30 jours</li>
-        <li class="off"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Intégration IA</li>
-        <li class="off"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Modélisation 3D</li>
-      </ul>
-      <button class="plan-btn" onclick="goDevis('starter')">Choisir Starter →</button>
-    </div>
-    <div class="plan best reveal">
-      <div class="plan-badge g">Le plus choisi</div>
-      <div class="plan-name">Pro</div>
-      <div class="plan-price"><sup>€</sup>990 <small>/ projet</small></div>
-      <p class="plan-desc">Site + app + maquettes IA</p>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Site web 15 pages</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Application web/mobile</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Maquettes & wireframes IA</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>SEO avancé inclus</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Plans & fiches PDF</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Support 3 mois</li>
-        <li class="off"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Modélisation 3D complète</li>
-      </ul>
-      <button class="plan-btn" onclick="goDevis('pro')">Choisir Pro →</button>
-    </div>
-    <div class="plan reveal">
-      <div class="plan-name">Business</div>
-      <div class="plan-price"><sup>€</sup>1 990 <small>/ projet</small></div>
-      <p class="plan-desc">Solution complète clé en main</p>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Site web illimité</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>App mobile iOS + Android</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Modélisation 3D complète</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Intégration IA avancée</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>API payante intégrée</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>IA sur demande — tarif variable</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Support 6 mois</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Formation équipe</li>
-      </ul>
-      <button class="plan-btn" onclick="goDevis('business')">Choisir Business →</button>
-    </div>
-    <div class="plan galaxy reveal">
-      <div class="plan-badge p">Exclusif</div>
-      <div class="plan-name" style="color:var(--purp)">NexIA Infinity</div>
-      <div class="plan-price"><sup>€</sup>149 <small>/ mois</small></div>
-      <p class="plan-desc">Abonnement tout inclus — sans limites</p>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Projets illimités / mois</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Mises à jour continues</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Hébergement premium inclus</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>IA dédiée à votre marque</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Rapports & analytics</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Accompagnement dédié</li>
-        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Génération auto docs</li>
-      </ul>
-      <button class="plan-btn" onclick="goDevis('infinity')">Souscrire →</button>
-    </div>
-  </div>
-  <div class="cmp-wrap">
-    <div class="cmp-title">Comparatif complet</div>
-    <div style="overflow-x:auto">
-      <table class="cmp-table">
-        <thead><tr>
-          <th style="width:30%">Fonctionnalité</th>
-          <th>Starter</th><th class="thbest">Pro</th><th>Business</th><th class="thg">Infinity</th>
-        </tr></thead>
-        <tbody>
-          <tr><td>Site web</td><td>5 pages</td><td>15 pages</td><td>Illimité</td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>Design IA personnalisé</td><td><span class="dk">—</span></td><td><span class="ck">✦</span></td><td><span class="ck">✦</span></td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>Application mobile / web</td><td><span class="dk">—</span></td><td><span class="ck">✦</span></td><td><span class="ck">✦</span></td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>Modélisation & maquettes 3D</td><td><span class="dk">—</span></td><td>Partiel</td><td><span class="ck">✦</span></td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>Plans & fiches PDF IA</td><td><span class="dk">—</span></td><td><span class="ck">✦</span></td><td><span class="ck">✦</span></td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>Intégration API / IA avancée</td><td><span class="dk">—</span></td><td><span class="dk">—</span></td><td><span class="ck">✦</span></td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>SEO & performances</td><td>Basique</td><td>Avancé</td><td>Premium</td><td>Premium+</td></tr>
-          <tr><td>Hébergement inclus</td><td><span class="ck">✦</span></td><td><span class="ck">✦</span></td><td><span class="ck">✦</span></td><td><span class="ckv">✦</span></td></tr>
-          <tr><td>Support & maintenance</td><td>30 jours</td><td>3 mois</td><td>6 mois</td><td>Accompagnement dédié</td></tr>
-          <tr><td>Délai de livraison</td><td>1 semaine</td><td>3 semaines</td><td>5 semaines</td><td>Continu</td></tr>
-          <tr class="price-row"><td><strong>Prix</strong></td><td>390 €</td><td>990 €</td><td>1 990 €</td><td>149 €/mois</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<!-- DEVIS GENERATOR -->
+<section id="devis" class="quote-section">
+<div class="section-header fade-in">
+<div class="section-tag">// devis express</div>
+<div class="section-title">Estimez votre projet en 30 secondes</div>
+<p class="section-desc">Sélectionnez vos besoins, on vous donne une fourchette de prix instantanée.</p>
+</div>
+<div class="quote-container">
+<div class="quote-form fade-in">
+<div class="form-group">
+<label>Type de projet</label>
+<select id="q-type" onchange="calcEstimate()">
+<option value="">-- Choisir --</option>
+<option value="site">Site vitrine / landing page</option>
+<option value="app">Application web / mobile</option>
+<option value="ia">Solution IA / automatisation</option>
+<option value="3d">Modélisation 3D</option>
+<option value="doc">Documents professionnels</option>
+</select>
+</div>
+<div class="form-group">
+<label>Complexité</label>
+<select id="q-complexity" onchange="calcEstimate()">
+<option value="">-- Choisir --</option>
+<option value="simple">Simple — quelques pages / fonctionnalités</option>
+<option value="medium">Moyen — plusieurs modules, intégrations</option>
+<option value="complex">Complexe — sur mesure avancé</option>
+</select>
+</div>
+<div class="form-group">
+<label>Options supplémentaires</label>
+<div class="checkbox-group">
+<label class="checkbox-label"><input type="checkbox" value="seo" onchange="calcEstimate()">SEO</label>
+<label class="checkbox-label"><input type="checkbox" value="design" onchange="calcEstimate()">Design premium</label>
+<label class="checkbox-label"><input type="checkbox" value="content" onchange="calcEstimate()">Rédaction contenu</label>
+<label class="checkbox-label"><input type="checkbox" value="maintenance" onchange="calcEstimate()">Maintenance mensuelle</label>
+<label class="checkbox-label"><input type="checkbox" value="analytics" onchange="calcEstimate()">Analytics & tracking</label>
+<label class="checkbox-label"><input type="checkbox" value="multilang" onchange="calcEstimate()">Multi-langues</label>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Votre nom</label>
+<input type="text" id="q-name" placeholder="Jean Dupont">
+</div>
+<div class="form-group">
+<label>Votre email</label>
+<input type="email" id="q-email" placeholder="jean@entreprise.com">
+</div>
+</div>
+<div class="form-group">
+<label>Téléphone</label>
+<input type="tel" id="q-phone" placeholder="06 12 34 56 78">
+</div>
+<div class="form-group">
+<label>Décrivez brièvement votre projet</label>
+<textarea id="q-desc" rows="3" placeholder="Ex: J'ai besoin d'un site vitrine pour mon restaurant avec réservation en ligne..."></textarea>
+</div>
+<div class="estimate-result" id="estimate">
+<div style="font-size:13px;color:var(--text3);margin-bottom:8px;font-family:'JetBrains Mono',monospace">ESTIMATION</div>
+<div class="estimate-price" id="estimate-price">—</div>
+<div class="estimate-detail" id="estimate-detail"></div>
+<div class="estimate-cta">
+<button class="btn-primary" onclick="submitQuote()">Recevoir le devis détaillé</button>
+</div>
+</div>
+</div>
+</div>
 </section>
 
-<!-- ── DEVIS IA ── -->
-<section id="devis" class="sec">
-  <div class="devis-wrap">
-    <div class="devis-info">
-      <div class="sec-label">Devis intelligent</div>
-      <h2 class="sec-title">Votre devis en<br>30 secondes</h2>
-      <p class="sec-sub">Notre IA génère un devis personnalisé et détaillé instantanément. Gratuit, sans engagement.</p>
-      <ul class="devis-why">
-        <li><div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3"/></svg></div><div><strong style="display:block;font-size:12.5px;color:var(--dark);margin-bottom:1px">IA générative</strong>Devis rédigé par IA, adapté à votre secteur et besoins précis.</div></li>
-        <li><div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><strong style="display:block;font-size:12.5px;color:var(--dark);margin-bottom:1px">Réponse en 30s</strong>Pas d'attente — le devis est généré en temps réel.</div></li>
-        <li><div class="why-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><strong style="display:block;font-size:12.5px;color:var(--dark);margin-bottom:1px">Sans engagement</strong>100% gratuit. On vous contacte si vous souhaitez avancer.</div></li>
-      </ul>
-    </div>
-    <div class="form-box">
-      <div class="form-title">Votre projet en quelques lignes</div>
-      <p class="form-sub">Remplissez ce formulaire — notre IA génère votre devis détaillé instantanément.</p>
-      <div class="fr">
-        <div class="fg"><label class="fl">Prénom & Nom *</label><input class="fi" id="d-nom" type="text" placeholder="Jean Dupont"></div>
-        <div class="fg"><label class="fl">Email *</label><input class="fi" id="d-email" type="email" placeholder="jean@email.com"></div>
-      </div>
-      <div class="fg"><label class="fl">Entreprise / Projet</label><input class="fi" id="d-entreprise" placeholder="Ex : Boulangerie Martin, Startup XYZ..."></div>
-      <div class="fr">
-        <div class="fg"><label class="fl">Type de projet *</label>
-          <select class="fs" id="d-type">
-            <option value="">Sélectionner...</option>
-            <option value="site-vitrine">Site vitrine</option>
-            <option value="e-commerce">Site e-commerce</option>
-            <option value="app-mobile">Application mobile</option>
-            <option value="app-web">Application web / SaaS</option>
-            <option value="maquette-3d">Modélisation & maquettes 3D</option>
-            <option value="docs-techniques">Plans & documents techniques</option>
-            <option value="autre">Autre / Sur-mesure</option>
-          </select>
-        </div>
-        <div class="fg"><label class="fl">Formule envisagée</label>
-          <select class="fs" id="d-formule">
-            <option value="je-ne-sais-pas">Je ne sais pas encore</option>
-            <option value="starter">Starter — 390€</option>
-            <option value="pro">Pro — 990€</option>
-            <option value="business">Business — 1990€</option>
-            <option value="infinity">NexIA Infinity — 149€/mois</option>
-          </select>
-        </div>
-      </div>
-      <div class="fg">
-        <label class="fl">Services souhaités</label>
-        <div class="fcbs">
-          <label class="fcb"><input type="checkbox" value="site-web"> Site web</label>
-          <label class="fcb"><input type="checkbox" value="app-mobile"> Application mobile</label>
-          <label class="fcb"><input type="checkbox" value="maquettes"> Maquettes 3D</label>
-          <label class="fcb"><input type="checkbox" value="ia"> Intégration IA</label>
-          <label class="fcb"><input type="checkbox" value="seo"> SEO & marketing</label>
-          <label class="fcb"><input type="checkbox" value="docs"> Docs techniques</label>
-        </div>
-      </div>
-      <div class="fg"><label class="fl">Décrivez votre projet *</label><textarea class="fta" id="d-desc" placeholder="Ex : Je veux créer un site pour ma boulangerie avec galerie, menu et formulaire de contact. Budget flexible, livraison souhaitée dans 2 semaines..."></textarea></div>
-      <button class="fsubmit" id="d-btn" onclick="genDevis()">
-        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 110 20 10 10 0 010-20z"/><path d="M12 8v4l3 3"/></svg>
-        Générer mon devis IA
-      </button>
-      <div id="devis-result">
-        <div class="res-head"><div class="res-badge">NexIA IA</div><div class="res-title">Votre devis personnalisé</div></div>
-        <div id="devis-text"></div>
-        <div class="res-actions">
-          <a id="mail-link" href="mailto:salomon.hazot2@gmail.com" class="res-btn rp">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Envoyer par mail
-          </a>
-          <button class="res-btn rs" onclick="resetDevis()">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
-            Nouveau devis
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- CONTACT -->
+<section id="contact">
+<div class="section-header fade-in">
+<div class="section-tag">// contact</div>
+<div class="section-title">On en parle ?</div>
+<p class="section-desc">Un projet, une question, une idée ? Contactez-nous.</p>
+</div>
+<div class="contact-grid fade-in">
+<div class="contact-info">
+<div class="contact-item">
+<div class="contact-icon">📍</div>
+<div><h4>Localisation</h4><p>Lyon, France</p></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">✉️</div>
+<div><h4>Email</h4><p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1665777a797b7978387e776c79622456717b777f7a3875797b">[email&#160;protected]</a></p></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">⚡</div>
+<div><h4>Réponse</h4><p>Sous 48h maximum</p></div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">🕐</div>
+<div><h4>Disponibilité</h4><p>Lun — Ven, 9h — 19h</p></div>
+</div>
+</div>
+<div>
+<div class="quote-form">
+<div class="form-group">
+<label>Nom</label>
+<input type="text" placeholder="Votre nom">
+</div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" placeholder="votre@email.com">
+</div>
+<div class="form-group">
+<label>Téléphone</label>
+<input type="tel" placeholder="06 12 34 56 78">
+</div>
+<div class="form-group">
+<label>Message</label>
+<textarea rows="5" placeholder="Décrivez votre projet..."></textarea>
+</div>
+<button class="btn-primary" style="width:100%">Envoyer le message</button>
+</div>
+</div>
+</div>
 </section>
 
-<!-- ── METHODE ── -->
-<section id="methode" class="sec">
-  <div class="sec-head" style="text-align:center">
-    <div class="sec-label" style="text-align:center">Notre processus</div>
-    <h2 class="sec-title" style="max-width:420px;margin:0 auto 12px">Comment nous travaillons</h2>
-    <p class="sec-sub" style="margin:0 auto;text-align:center;max-width:440px">Un processus transparent, de l'idée à la mise en ligne.</p>
-  </div>
-  <div class="proc-steps">
-    <div class="proc-step reveal"><div class="proc-num">01</div><div class="proc-title">Cadrage</div><p class="proc-desc">Analyse du besoin, objectifs, périmètre technique et planning précis.</p></div>
-    <div class="proc-step reveal"><div class="proc-num">02</div><div class="proc-title">Conception IA</div><p class="proc-desc">Maquettes, wireframes et prototypes générés et affinés par IA.</p></div>
-    <div class="proc-step reveal"><div class="proc-num">03</div><div class="proc-title">Développement</div><p class="proc-desc">Intégration, code sur-mesure, tests qualité et optimisations.</p></div>
-    <div class="proc-step reveal"><div class="proc-num">04</div><div class="proc-title">Livraison</div><p class="proc-desc">Déploiement, formation, transfert et support post-lancement.</p></div>
-  </div>
-</section>
-
-<!-- ── CONTACT ── -->
-<section id="contact" class="sec">
-  <div class="contact-grid">
-    <div class="contact-left">
-      <div class="sec-label" style="color:var(--gold)">Parlons de votre projet</div>
-      <h2 class="sec-title">Prêt à démarrer ?<br>Contactez-nous.</h2>
-      <p class="sec-sub">Que vous ayez une idée précise ou un simple besoin, nous transformons votre vision en réalité.</p>
-      <div class="cinfos">
-        <div class="cinfo"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="cinfo-lbl">Email</div><div class="cinfo-val"><a href="mailto:salomon.hazot2@gmail.com">salomon.hazot2@gmail.com</a></div></div></div>
-        <div class="cinfo"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3"/></svg></div><div><div class="cinfo-lbl">IA disponible</div><div class="cinfo-val">Devis généré en 30 secondes</div></div></div>
-        <div class="cinfo"><div class="cinfo-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cinfo-lbl">Localisation</div><div class="cinfo-val">Lyon, France — Projets worldwide</div></div></div>
-      </div>
-    </div>
-    <div class="contact-right">
-      <div class="form-box" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)">
-        <div class="form-title" style="color:#fff;margin-bottom:18px">Message rapide</div>
-        <div class="fg"><label class="fl" style="color:rgba(255,255,255,.45)">Votre nom</label><input class="fi" id="c-nom" placeholder="Jean Dupont" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff"></div>
-        <div class="fg"><label class="fl" style="color:rgba(255,255,255,.45)">Email</label><input class="fi" id="c-email" type="email" placeholder="jean@email.com" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff"></div>
-        <div class="fg"><label class="fl" style="color:rgba(255,255,255,.45)">Message</label><textarea class="fta" id="c-msg" placeholder="Bonjour, je souhaite discuter d'un projet..." style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#fff"></textarea></div>
-        <button class="contact-submit" onclick="sendMsg()">Envoyer le message →</button>
-        <div id="contact-ok">Message envoyé ! Nous vous répondrons sous 24h. ✓</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <footer>
-  <div class="foot-logo">
-    <div class="fmark">N</div>
-    <div><div class="fname">Nex<span>IA</span> Studio</div><div class="foot-tagline">Intelligence · Design · Innovation</div></div>
-  </div>
-  <div class="foot-mid">© 2025 NexIA Studio — <a href="mailto:salomon.hazot2@gmail.com" style="color:var(--gold);text-decoration:none">salomon.hazot2@gmail.com</a></div>
-  <div class="foot-links">
-    <a href="#services">Services</a>
-    <a href="#portfolio">Réalisations</a>
-    <a href="#tarifs">Tarifs</a>
-    <a href="#devis">Devis IA</a>
-    <a href="#contact">Contact</a>
-  </div>
+<div class="footer-logo">Nex<span>IA</span> Studio</div>
+<p>&copy; 2026 NexIA Studio — Lyon, France. Tous droits réservés.</p>
 </footer>
 
-<!-- ── MODAL ── -->
-<div id="port-modal">
-  <div class="port-modal-box">
-    <button class="port-modal-close" onclick="closeModal()">✕</button>
-    <div class="port-modal-title" id="modal-title">Titre</div>
-    <div class="port-modal-sub" id="modal-sub">Description</div>
-    <div class="port-modal-content">
-      <div id="modal-preview" style="border:1px solid var(--border);margin-bottom:20px;min-height:200px;overflow:hidden"></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="#devis" class="btn-p" onclick="closeModal()" style="font-size:12px">Demander un projet similaire →</a>
-        <a href="mailto:salomon.hazot2@gmail.com" class="btn-s" style="font-size:12px">Contacter NexIA Studio</a>
-      </div>
-    </div>
-  </div>
-</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Scroll animations
+const obs = new IntersectionObserver((entries) => {
+entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') })
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 
-<!-- ── TOAST ── -->
-<div class="toast" id="toast"></div>
-
-<script>
-// ── SCROLL EFFECTS ──
-window.addEventListener('scroll',()=>{
-  const nav=document.getElementById('nav');
-  nav.style.boxShadow=window.scrollY>20?'0 2px 20px rgba(0,0,0,.06)':'none';
+// Active nav link
+const sections = document.querySelectorAll('section, .hero');
+const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(s => { if(scrollY >= s.offsetTop - 200) current = s.getAttribute('id') });
+navLinks.forEach(a => {
+a.classList.remove('active');
+if(a.getAttribute('href') === '#' + current) a.classList.add('active');
+});
 });
 
-// ── REVEAL ──
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// Close mobile menu on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+});
 
-// ── HERO ANIMS ──
-setTimeout(()=>{
-  const b1=document.getElementById('hb1');const p1=document.getElementById('hp1');
-  if(b1){b1.style.width='78%';if(p1)p1.textContent='78%';}
-  const b2=document.getElementById('hb2');if(b2)b2.style.width='98%';
-  let n=0;const el=document.getElementById('hcount');
-  if(el){const t=setInterval(()=>{n++;el.textContent=n;if(n>=47)clearInterval(t);},30);}
-},700);
+// Quote estimator
+const basePrices = {site:390,app:990,ia:690,'3d':490,doc:190};
+const complexMultiplier = {simple:1,medium:2,complex:3.5};
+const optionPrices = {seo:150,design:250,content:200,maintenance:149,analytics:100,multilang:300};
 
-// ── BURGER ──
-function toggleMenu(){document.getElementById('mob-menu').classList.toggle('open')}
-function closeMenu(){document.getElementById('mob-menu').classList.remove('open')}
+function calcEstimate(){
+const type = document.getElementById('q-type').value;
+const complexity = document.getElementById('q-complexity').value;
+if(!type || !complexity) { document.getElementById('estimate').classList.remove('show'); return; }
 
-// ── TABS ──
-function switchTab(tab){
-  document.querySelectorAll('.port-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.port-panel').forEach(p=>p.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('panel-'+tab).classList.add('active');
-  // Re-trigger reveals
-  document.querySelectorAll('#panel-'+tab+' .reveal').forEach(el=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),100)});
+let base = basePrices[type] * complexMultiplier[complexity];
+let optTotal = 0;
+let opts = [];
+document.querySelectorAll('.checkbox-group input:checked').forEach(cb => {
+optTotal += optionPrices[cb.value];
+opts.push(cb.value);
+});
+
+const isMaintenance = opts.includes('maintenance');
+const oneTime = Math.round(base + optTotal - (isMaintenance ? 149 : 0));
+const low = Math.round(oneTime * 0.85);
+const high = Math.round(oneTime * 1.2);
+
+document.getElementById('estimate-price').textContent = low + '€ — ' + high + '€';
+let detail = 'Prestation one-shot, hors taxes';
+if(isMaintenance) detail += ' + 249€/mois maintenance';
+document.getElementById('estimate-detail').textContent = detail;
+document.getElementById('estimate').classList.add('show');
 }
 
-// ── MODAL ──
-const modalData={
-  'site-agence':['Agence Créative — Site vitrine','Design IA moderne, animations CSS, SEO optimisé. React / Next.js — Formule Pro'],
-  'site-resto':['Restaurant Gastronomique — Dark theme','Menu interactif, réservation en ligne, galerie IA. HTML5/CSS3 — Formule Starter'],
-  'site-cabinet':['Cabinet Médical — Portail patient','Prise de RDV, dossiers sécurisés, formulaires. Vue.js / Laravel — Formule Business'],
-  'app-gestion':['App Gestion Chantiers — Mobile','Suivi temps réel, devis, facturation. React Native / Node.js — Formule Business'],
-  'app-rh':['App RH Entreprise — Web','Gestion congés, planning, fiches de paie. Next.js / PostgreSQL — Formule Pro'],
-  'app-ia':['Assistant IA Intégré — SaaS','Rédaction, analyse et automatisation. React / Claude API — Formule Business'],
-  'shop-mode':['Boutique Mode — E-commerce','Catalogue IA, recommandations, paiement Stripe. Next.js / Stripe — Formule Pro'],
-  'shop-bio':['Épicerie Bio — E-commerce food','Panier, abonnement livraison, stock IA. Vue.js / WooCommerce — Formule Pro'],
-  'shop-tech':['Tech Store B2B — Marketplace','Devis auto IA, catalogue, compte client. React / Salesforce — Formule Business'],
-  'dash-analytics':['Dashboard Analytics — Temps réel','KPIs, graphiques D3.js, rapports IA. React / D3.js — Formule Pro'],
-  'dash-crm':['CRM Intelligent — IA intégrée','Scoring leads auto, prédiction ventes. Vue.js / Python IA — Formule Business'],
-  'dash-immo':['Dashboard Immobilier — Portail','Estimation IA, matching bien/acheteur. React / ML — Formule Business'],
-};
-function openModal(id,name,desc,tech){
-  const d=modalData[id];
-  document.getElementById('modal-title').textContent=d?d[0]:name;
-  document.getElementById('modal-sub').textContent=d?d[1]:(desc+' — '+tech);
-  // Clone preview
-  const card=document.querySelector(`[onclick*="${id}"] .port-preview`);
-  const mp=document.getElementById('modal-preview');
-  mp.innerHTML='';
-  if(card){
-    const clone=card.cloneNode(true);
-    clone.style.height='300px';
-    clone.style.pointerEvents='none';
-    // Remove overlay
-    clone.querySelector('.port-overlay')?.remove();
-    clone.querySelector('.maq-label')?.remove();
-    mp.appendChild(clone);
-  }
-  document.getElementById('port-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){
-  document.getElementById('port-modal').classList.remove('open');
-  document.body.style.overflow='';
-}
-document.getElementById('port-modal').addEventListener('click',e=>{if(e.target===document.getElementById('port-modal'))closeModal();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
-
-// ── DEVIS ──
-function goDevis(plan){
-  document.getElementById('devis').scrollIntoView({behavior:'smooth'});
-  setTimeout(()=>{const s=document.getElementById('d-formule');if(s)s.value=plan;},500);
-}
-
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3500);
-}
-
-async function genDevis(){
-  const nom=document.getElementById('d-nom').value.trim();
-  const email=document.getElementById('d-email').value.trim();
-  const entreprise=document.getElementById('d-entreprise').value.trim();
-  const type=document.getElementById('d-type').value;
-  const formule=document.getElementById('d-formule').value;
-  const desc=document.getElementById('d-desc').value.trim();
-  const services=[...document.querySelectorAll('#devis .fcb input:checked')].map(c=>c.value);
-  if(!nom||!email||!type||!desc){showToast('⚠ Merci de remplir les champs obligatoires');return;}
-  const btn=document.getElementById('d-btn');
-  btn.disabled=true;
-  btn.innerHTML='<div class="ldots"><span></span><span></span><span></span></div> Génération IA en cours...';
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:1000,
-        messages:[{role:'user',content:`Tu es un expert commercial de "NexIA Studio" (agence IA — email: salomon.hazot2@gmail.com). Génère un devis professionnel détaillé en français.
-
-Client : ${nom} | Email : ${email}
-Entreprise : ${entreprise||'Non précisé'}
-Type de projet : ${type}
-Formule : ${formule}
-Services : ${services.join(', ')||'Non précisés'}
-Description : ${desc}
-
-Structure du devis :
-1. Introduction chaleureuse et personnalisée
-2. Résumé du projet compris (3-4 lignes)
-3. Prestations détaillées avec estimation de temps
-4. Budget estimé cohérent avec nos tarifs (Starter 390€, Pro 990€, Business 1990€, Infinity 149€/mois)
-5. Délai de réalisation
-6. Prochaines étapes
-7. Signature NexIA Studio — salomon.hazot2@gmail.com
-
-Sois concis, professionnel et convaincant. Max 350 mots.`}]
-      })
-    });
-    const data=await res.json();
-    const text=data.content?.[0]?.text||'Erreur lors de la génération.';
-    document.getElementById('devis-text').textContent=text;
-    document.getElementById('devis-result').style.display='block';
-    const mailBody=encodeURIComponent(`DEVIS NEXIA STUDIO\n\nClient : ${nom}\nEmail : ${email}\n\n${text}`);
-    document.getElementById('mail-link').href=`mailto:salomon.hazot2@gmail.com?subject=Devis NexIA Studio - ${nom}&body=${mailBody}`;
-    document.getElementById('devis-result').scrollIntoView({behavior:'smooth',block:'center'});
-    showToast('✓ Devis généré avec succès !');
-  }catch(e){showToast('⚠ Erreur réseau. Vérifiez votre connexion.');}
-  btn.disabled=false;
-  btn.innerHTML='<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 110 20 10 10 0 010-20z"/><path d="M12 8v4l3 3"/></svg> Générer mon devis IA';
-}
-
-function resetDevis(){
-  document.getElementById('devis-result').style.display='none';
-  ['d-nom','d-email','d-entreprise','d-desc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('d-type').value='';
-  document.getElementById('d-formule').value='je-ne-sais-pas';
-  document.querySelectorAll('#devis .fcb input').forEach(c=>c.checked=false);
-  document.getElementById('devis').scrollIntoView({behavior:'smooth'});
-}
-
-// ── CONTACT ──
-function sendMsg(){
-  const n=document.getElementById('c-nom').value.trim();
-  const e=document.getElementById('c-email').value.trim();
-  const m=document.getElementById('c-msg').value.trim();
-  if(!n||!e||!m){showToast('⚠ Remplissez tous les champs');return;}
-  document.getElementById('contact-ok').style.display='block';
-  showToast('✓ Message envoyé !');
-  setTimeout(()=>{document.getElementById('c-nom').value='';document.getElementById('c-email').value='';document.getElementById('c-msg').value='';},800);
+function submitQuote(){
+const name = document.getElementById('q-name').value;
+const email = document.getElementById('q-email').value;
+if(!name || !email){ alert('Merci de renseigner votre nom et email.'); return; }
+const price = document.getElementById('estimate-price').textContent;
+const subject = encodeURIComponent('Demande de devis NexIA Studio');
+const body = encodeURIComponent('Bonjour,\n\nJe souhaite un devis pour mon projet.\n\nEstimation : '+price+'\n\nNom : '+name+'\nEmail : '+email+'\nTéléphone : '+(document.getElementById('q-phone').value||'Non renseigné')+'\n\nDescription : '+document.getElementById('q-desc').value+'\n\nMerci !');
+window.open('mailto:salomon.hazot2@gmail.com?subject='+subject+'&body='+body);
 }
 </script>
-</body>
-</html>
+
+<!-- CHATBOT -->
+<style>
+.chat-bubble{position:fixed;bottom:24px;right:24px;z-index:200;width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 24px #1D9E7550;transition:all .3s;border:none}
+.chat-bubble:hover{transform:scale(1.1);box-shadow:0 6px 32px #1D9E7570}
+.chat-bubble svg{width:26px;height:26px}
+.chat-bubble.active{transform:rotate(90deg) scale(1.1)}
+.chat-panel{position:fixed;bottom:92px;right:24px;z-index:200;width:360px;max-height:500px;background:var(--bg2);border:1px solid var(--green-glow);border-radius:var(--radius);overflow:hidden;display:none;flex-direction:column;box-shadow:0 12px 48px #00000060;animation:fadeUp .3s ease}
+.chat-panel.open{display:flex}
+.chat-header{padding:16px 20px;background:var(--bg3);border-bottom:1px solid var(--green-glow);display:flex;align-items:center;gap:10px}
+.chat-header-dot{width:8px;height:8px;border-radius:50%;background:#1D9E75;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.chat-header-text{font-size:14px;font-weight:500}
+.chat-header-sub{font-size:11px;color:var(--text3)}
+.chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;max-height:340px}
+.chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.5;animation:fadeUp .3s ease}
+.chat-msg.bot{background:var(--bg4);border:1px solid var(--green-glow);align-self:flex-start;border-bottom-left-radius:4px}
+.chat-msg.user{background:var(--green);color:#060b09;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
+.chat-options{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}
+.chat-opt{padding:6px 12px;border:1px solid var(--green-glow);border-radius:20px;font-size:12px;color:var(--green-light);cursor:pointer;transition:all .2s;background:transparent;font-family:'Outfit',sans-serif}
+.chat-opt:hover{border-color:var(--green);background:var(--green)15;color:var(--green-neon)}
+.chat-input-bar{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--green-glow);background:var(--bg3)}
+.chat-input-bar input{flex:1;background:var(--bg);border:1px solid var(--green-glow);border-radius:var(--radius-sm);padding:8px 12px;color:var(--text);font-size:13px;font-family:'Outfit',sans-serif;outline:none}
+.chat-input-bar input:focus{border-color:var(--green)}
+.chat-input-bar button{background:var(--green);border:none;border-radius:var(--radius-sm);padding:8px 14px;cursor:pointer;color:#060b09;font-weight:600;font-size:13px;font-family:'Outfit',sans-serif;transition:background .2s}
+.chat-input-bar button:hover{background:var(--green-neon)}
+@media(max-width:768px){.chat-panel{width:calc(100% - 32px);right:16px;bottom:88px}}
+</style>
+
+<button class="chat-bubble" id="chatToggle" onclick="toggleChat()">
+<svg viewBox="0 0 24 24" fill="none" stroke="#060b09" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+<div class="chat-header">
+<div class="chat-header-dot"></div>
+<div>
+<div class="chat-header-text">NexIA Assistant</div>
+<div class="chat-header-sub">En ligne — Répond instantanément</div>
+</div>
+</div>
+<div class="chat-messages" id="chatMessages"></div>
+<div class="chat-options" id="chatOptions"></div>
+<div class="chat-input-bar">
+<input type="text" id="chatInput" placeholder="Écrivez votre message..." onkeydown="if(event.key==='Enter')sendChat()">
+<button onclick="sendChat()">Envoyer</button>
+</div>
+</div>
+
+<script>
+const chatData = {
+welcome: {
+msg: "Salut ! 👋 Je suis l'assistant NexIA. Comment je peux vous aider ?",
+options: ["Vos services","Vos tarifs","Délais de livraison","Demander un devis","Parler à un humain"]
+},
+"vos services": {
+msg: "On propose 5 types de services :\n\n🌐 Sites web & landing pages\n📱 Applications web & mobile\n🤖 Solutions IA & automatisation\n🧊 Modélisation 3D\n📄 Documents professionnels\n\nQuel domaine vous intéresse ?",
+options: ["Sites web","Applications","Solutions IA","Modélisation 3D","Documents"]
+},
+"vos tarifs": {
+msg: "Voici nos tarifs de départ :\n\n🌐 Site vitrine : à partir de 1 490€\n📱 Application : à partir de 2 490€\n🤖 IA : à partir de 1 890€\n🧊 3D : à partir de 1 490€\n📄 Documents : à partir de 1 190€\n♾️ Abonnement NexIA Infinity : 249€/mois\n\nLe prix final dépend de la complexité. Utilisez notre estimateur de devis pour un chiffrage précis !",
+options: ["Estimer mon projet","Vos services","Parler à un humain"]
+},
+"délais de livraison": {
+msg: "Nos délais moyens :\n\n⚡ Site vitrine simple : 5-7 jours\n📱 Application web : 2-4 semaines\n🤖 Solution IA : 2-3 semaines\n🧊 Modélisation 3D : 1-2 semaines\n📄 Documents : 2-5 jours\n\nOn s'engage sur un calendrier précis dans le devis.",
+options: ["Demander un devis","Vos tarifs","Parler à un humain"]
+},
+"demander un devis": {
+msg: "Parfait ! Deux options :\n\n1️⃣ Utilisez notre estimateur de devis automatique en haut de cette page (section Devis Express)\n\n2️⃣ Envoyez-nous un email à salomon.hazot2@gmail.com avec la description de votre projet\n\nOn vous répond sous 48h max !",
+options: ["Estimer mon projet","Vos services","Autre question"]
+},
+"estimer mon projet": {
+msg: "Je vous redirige vers notre estimateur de devis ! ⬆️",
+options: ["Vos services","Parler à un humain"],
+action: () => { document.getElementById('devis').scrollIntoView({behavior:'smooth'}); }
+},
+"parler à un humain": {
+msg: "Bien sûr ! Vous pouvez nous joindre :\n\n✉️ salomon.hazot2@gmail.com\n📍 Lyon, France\n🕐 Lun-Ven, 9h-19h\n\nOu remplissez le formulaire de contact en bas de page, on revient vers vous rapidement !",
+options: ["Vos services","Vos tarifs","Estimer mon projet"]
+},
+"sites web": {
+msg: "🌐 Nos sites web incluent :\n\n• Design sur mesure, responsive\n• Optimisation SEO de base\n• Hébergement conseillé\n• 2 allers-retours de révision\n• 30 jours de support post-livraison\n\nÀ partir de 1 490€ pour un site vitrine simple.",
+options: ["Vos tarifs","Estimer mon projet","Autre question"]
+},
+"applications": {
+msg: "📱 Nos applications web & mobile :\n\n• PWA, dashboards, outils métier\n• Connexion API & bases de données\n• Interface utilisateur intuitive\n• Tests et déploiement inclus\n\nÀ partir de 2 490€ selon la complexité.",
+options: ["Vos tarifs","Estimer mon projet","Autre question"]
+},
+"solutions ia": {
+msg: "🤖 Nos solutions IA :\n\n• Chatbots intelligents\n• Automatisation de process\n• Analyse de données\n• Génération de contenu\n• Intégration API IA (OpenAI, etc.)\n\nÀ partir de 1 890€.",
+options: ["Vos tarifs","Estimer mon projet","Autre question"]
+},
+"modélisation 3d": {
+msg: "🧊 Nos services 3D :\n\n• Modélisation produit\n• Rendus photo-réalistes\n• Animations 3D\n• Visualisation architecturale\n\nÀ partir de 1 490€.",
+options: ["Vos tarifs","Estimer mon projet","Autre question"]
+},
+"documents": {
+msg: "📄 Nos documents pros :\n\n• Brochures commerciales\n• Présentations PowerPoint\n• Rapports techniques\n• Notices et manuels\n\nÀ partir de 1 190€.",
+options: ["Vos tarifs","Estimer mon projet","Autre question"]
+},
+"autre question": {
+msg: "Pas de souci ! Posez votre question ici ou contactez-nous directement à salomon.hazot2@gmail.com. On est là pour vous aider !",
+options: ["Vos services","Vos tarifs","Parler à un humain"]
+}
+};
+
+const fallback = {
+msg: "Merci pour votre message ! Pour une réponse précise, je vous invite à nous contacter à salomon.hazot2@gmail.com ou via le formulaire de contact. On revient vers vous sous 48h !",
+options: ["Vos services","Vos tarifs","Demander un devis","Parler à un humain"]
+};
+
+function toggleChat(){
+const panel = document.getElementById('chatPanel');
+const btn = document.getElementById('chatToggle');
+const isOpen = panel.classList.toggle('open');
+btn.classList.toggle('active', isOpen);
+if(isOpen && document.getElementById('chatMessages').children.length === 0){
+setTimeout(() => showBot(chatData.welcome), 300);
+}
+}
+
+function showBot(data){
+const msgs = document.getElementById('chatMessages');
+const opts = document.getElementById('chatOptions');
+const bubble = document.createElement('div');
+bubble.className = 'chat-msg bot';
+bubble.textContent = data.msg;
+msgs.appendChild(bubble);
+msgs.scrollTop = msgs.scrollHeight;
+opts.innerHTML = '';
+if(data.options){
+data.options.forEach(o => {
+const b = document.createElement('button');
+b.className = 'chat-opt';
+b.textContent = o;
+b.onclick = () => handleOption(o);
+opts.appendChild(b);
+});
+}
+if(data.action) setTimeout(data.action, 600);
+}
+
+function handleOption(text){
+const msgs = document.getElementById('chatMessages');
+const userMsg = document.createElement('div');
+userMsg.className = 'chat-msg user';
+userMsg.textContent = text;
+msgs.appendChild(userMsg);
+msgs.scrollTop = msgs.scrollHeight;
+const key = text.toLowerCase();
+const response = chatData[key] || fallback;
+setTimeout(() => showBot(response), 500);
+}
+
+function sendChat(){
+const input = document.getElementById('chatInput');
+const text = input.value.trim();
+if(!text) return;
+const msgs = document.getElementById('chatMessages');
+const userMsg = document.createElement('div');
+userMsg.className = 'chat-msg user';
+userMsg.textContent = text;
